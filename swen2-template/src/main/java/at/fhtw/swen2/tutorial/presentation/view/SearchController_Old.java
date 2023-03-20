@@ -2,7 +2,6 @@ package at.fhtw.swen2.tutorial.presentation.view;
 
 
 import at.fhtw.swen2.tutorial.presentation.viewmodel.SearchViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 //@Scope("prototype")
 @Slf4j
-public class SearchController {
+public class SearchController_Old {
 
     public static final int PAGE_ITEMS_COUNT = 10;
 
@@ -51,4 +50,5 @@ public class SearchController {
     private void loadData() {
         searchViewModel.search();
     }
+
 }
