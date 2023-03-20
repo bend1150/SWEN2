@@ -23,32 +23,21 @@ public class SearchController {
     private SearchViewModel searchViewModel;
 
     @FXML
-    private TextField searchField;
+    private TextField searchTextField;
     @FXML
     private Button searchButton;
-    @FXML
-    private Label searchLabel;
 
     @FXML
     private void initialize() {
 
-        searchField.textProperty().bindBidirectional(searchViewModel.searchStringProperty());
 
-        // search panel
-        searchButton.setText("Search");
-        searchButton.setOnAction(event -> loadData());
-        searchButton.setStyle("-fx-background-color: slateblue; -fx-text-fill: white;");
-        searchField.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                loadData();
-            }
-        });
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchLabel.setText(newValue);
-        });
     }
 
     private void loadData() {
         searchViewModel.search();
+    }
+
+    public void searchRoutes(ActionEvent actionEvent) {
+
     }
 }
