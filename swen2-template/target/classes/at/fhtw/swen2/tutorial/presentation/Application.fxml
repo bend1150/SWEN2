@@ -41,7 +41,7 @@
                   <SplitPane disable="true" dividerPositions="0.265">
                     <items>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-
+                            <fx:include source="view/RouteList.fxml"/>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="319.0" prefWidth="542.0">
                           <children>
