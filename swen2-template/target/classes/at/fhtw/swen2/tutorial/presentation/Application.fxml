@@ -45,7 +45,12 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="319.0" prefWidth="542.0">
                           <children>
-                              <fx:include source="view/Search.fxml"/>
+                              <fx:include source="view/Search.fxml" />
+                          </children>
+                          <children>
+                              <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
+                                <fx:include source="view/Overview.fxml" />
+                              </VBox>
                           </children>
                       </AnchorPane>
                     </items>
