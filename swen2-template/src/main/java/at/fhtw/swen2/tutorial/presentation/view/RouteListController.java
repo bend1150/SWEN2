@@ -2,6 +2,7 @@ package at.fhtw.swen2.tutorial.presentation.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,8 @@ import java.util.ResourceBundle;
 public class RouteListController implements Initializable {
     @FXML
     ListView routeList;
+    @FXML
+    Button addButton;
 
 
     @Override
