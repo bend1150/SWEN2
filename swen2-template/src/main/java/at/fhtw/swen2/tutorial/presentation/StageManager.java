@@ -54,6 +54,7 @@ public class StageManager {
         try {
             Parent parent = (Parent) viewManager.load("at/fhtw/swen2/tutorial/presentation/Application", stage);
             stage.setScene(new Scene(parent));
+            stage.setTitle("Tour planner");
         } catch (IOException e) {
             log.error("Error occurred while creating Application scene", e);
         }                
