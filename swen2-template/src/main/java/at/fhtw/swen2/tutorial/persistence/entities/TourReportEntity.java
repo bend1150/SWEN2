@@ -21,7 +21,8 @@ public class TourReportEntity {
     // FetchType.Lazy -> Object(RouteEntity) sollte nur bei Zugriff geladen werden
     @ManyToOne(fetch = FetchType.LAZY)          //TourReport kann mehrere Tour logs haben
     @JoinColumn(name = "tour_id")               //spezifiziert die Spalte "tour_id", welches die foreign Key vom Tour & Tourlogs speichert
-    private RouteEntity tour;
+    private TourEntity tour;
+
     @OneToMany(mappedBy = "tourReport", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TourLogEntity> tourLogs;
 

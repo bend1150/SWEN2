@@ -1,7 +1,7 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.service.PersonService;
-import at.fhtw.swen2.tutorial.service.model.Route;
+import at.fhtw.swen2.tutorial.service.model.Tour;
 import javafx.beans.property.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class NewRouteViewModel {
     @Autowired
     private PersonListViewModel personListViewModel;
 
-    private Route route;
+    private Tour tour;
 
 
     public long getId() {

@@ -1,6 +1,6 @@
 package at.fhtw.swen2.tutorial.persistence;
 
-import at.fhtw.swen2.tutorial.persistence.entities.RouteEntity;
+import at.fhtw.swen2.tutorial.persistence.entities.TourEntity;
 import at.fhtw.swen2.tutorial.persistence.repositories.RouteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ class RoutePersistenceTests {
 
 	@Test
 	void testPersonRepository() {
-		RouteEntity route1 = RouteEntity.builder()
+		TourEntity route1 = TourEntity.builder()
 				.name("Wien1")
 				.description("fast")
 				.from("Ottakring")
