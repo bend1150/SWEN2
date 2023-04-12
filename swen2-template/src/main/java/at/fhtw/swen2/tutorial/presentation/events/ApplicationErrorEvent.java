@@ -1,8 +1,7 @@
-package at.fhtw.swen2.tutorial.presentation.view;
-
-import org.springframework.context.ApplicationEvent;
+package at.fhtw.swen2.tutorial.presentation.events;
 
 import lombok.Getter;
+import org.springframework.context.ApplicationEvent;
 
 public class ApplicationErrorEvent extends ApplicationEvent {
     @Getter private String message;
