@@ -1,15 +1,12 @@
 package at.fhtw.swen2.tutorial.presentation.view;
 
 import at.fhtw.swen2.tutorial.presentation.viewmodel.NewRouteViewModel;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Text;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,8 +30,6 @@ public class TourController implements Initializable {
     private TextField distanceTextBox;
     @FXML
     private TextField timeTextBox;
-    @FXML
-    private Button submitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle rb){
@@ -42,13 +37,14 @@ public class TourController implements Initializable {
         descriptionTextBox.textProperty().bindBidirectional(newRouteViewModel.descriptionProperty());
         originTextBox.textProperty().bindBidirectional(newRouteViewModel.originProperty());
         destinationTextBox.textProperty().bindBidirectional(newRouteViewModel.destinationProperty());
-        transportTextBox.textProperty().bindBidirectional(newRouteViewModel.transPortProperty());
+        transportTextBox.textProperty().bindBidirectional(newRouteViewModel.transportProperty());
         distanceTextBox.textProperty().bindBidirectional(newRouteViewModel.distanceProperty());
-        timeTextBox.textProperty().bindBidirectional(newRouteViewModel.distanceProperty());
+        timeTextBox.textProperty().bindBidirectional(newRouteViewModel.timeProperty());
     }
 
     public void submitButtonAction(){
         //pack the bound data from the viewmodel into a dto and ship to service
+        newRouteViewModel.saveRoute();
     }
 
 }

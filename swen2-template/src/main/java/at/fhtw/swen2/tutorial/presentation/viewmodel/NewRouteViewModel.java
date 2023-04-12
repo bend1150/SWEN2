@@ -1,6 +1,7 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.service.PersonService;
+import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
@@ -9,9 +10,17 @@ import javafx.beans.value.ObservableValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+import static java.lang.Float.parseFloat;
+
 
 @Component
 public class NewRouteViewModel {
+
+    @Autowired
+    private RouteService routeService;
+
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
     private SimpleStringProperty origin = new SimpleStringProperty();
@@ -41,7 +50,7 @@ public class NewRouteViewModel {
     public void setDestination(String destination) { this.destination.set(destination); }
 
     public String getTransport() { return transport.get(); }
-    public StringProperty transPortProperty() { return transport; }
+    public StringProperty transportProperty() { return transport; }
     public void setTransport(String transport) { this.transport.set(transport); }
 
     public String getDistance() { return distance.get(); }
@@ -51,4 +60,25 @@ public class NewRouteViewModel {
     public String getTime() { return time.get(); }
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
+
+    public void saveRoute(){
+        tour = Tour.builder()
+                .name(getName())
+                .description(getDescription())
+                .origin(getOrigin())
+                .destination(getDestination())
+                .transportType(getTransport())
+                .distance(parseFloat(getDistance()))
+                .time(parseFloat(getTime()))
+                //.routeInformation(null)
+                .build();
+
+        routeService.addNew(tour);
+
+        List<Tour> tours = routeService.getRouteList();
+        for (Tour t: tours
+             ) {
+            System.out.println(t.getName());
+        }
+    }
 }
