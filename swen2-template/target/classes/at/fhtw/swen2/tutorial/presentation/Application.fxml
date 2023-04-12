@@ -58,7 +58,9 @@
                </content>
           </Tab>
             <Tab text="%tab.logs.title">
-               
+                <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
+                    <fx:include source="view/TourEditor.fxml" />
+                </VBox>
             </Tab>
         </tabs>
       </TabPane>
