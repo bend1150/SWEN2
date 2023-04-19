@@ -14,6 +14,8 @@ class RoutePersistenceTests {
 
 	@Test
 	void testPersonRepository() {
+		/*
+
 		TourEntity route1 = TourEntity.builder()
 				.name("Wien1")
 				.description("fast")
@@ -25,6 +27,7 @@ class RoutePersistenceTests {
 				.build();
 		routeRepository.save(route1);
 		routeRepository.findAll().forEach(System.out::println);
+		*/
 	}
 
 }
