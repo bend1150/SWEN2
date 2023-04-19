@@ -1,9 +1,8 @@
-package at.fhtw.swen2.tutorial.presentation.view;
-
-import org.springframework.context.ApplicationEvent;
+package at.fhtw.swen2.tutorial.presentation.events;
 
 import javafx.stage.Stage;
 import lombok.Getter;
+import org.springframework.context.ApplicationEvent;
 
 public class ApplicationStartupEvent extends ApplicationEvent {
 

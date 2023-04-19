@@ -10,11 +10,11 @@ public class Tour {
     private Long id;
     private String name;
     private String description;
-    private String from;
-    private String to;
+    private String origin;
+    private String destination;
     private String transportType;
     private float distance;
     private float time;
-    private String routeInformation;
+    //private String routeInformation;
 
 }

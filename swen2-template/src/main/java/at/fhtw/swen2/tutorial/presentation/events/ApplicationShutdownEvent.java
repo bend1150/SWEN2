@@ -1,10 +1,10 @@
-package at.fhtw.swen2.tutorial.presentation.view;
+package at.fhtw.swen2.tutorial.presentation.events;
+
+import org.springframework.context.ApplicationEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
-
-import org.springframework.context.ApplicationEvent;
 
 public class ApplicationShutdownEvent extends ApplicationEvent {
     Map<Future<Boolean>, String> pending = new HashMap<>();
