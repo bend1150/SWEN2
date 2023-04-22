@@ -5,24 +5,24 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="at.fhtw.swen2.tutorial.presentation.view.TourController">
    <children>
       <Label layoutX="72.0" layoutY="126.0" text="Date" />
-      <TextField layoutX="122.0" layoutY="122.0" />
+      <TextField fx:id="date" layoutX="122.0" layoutY="122.0" />
       <Label layoutX="71.0" layoutY="165.0" text="Time" />
-      <TextField layoutX="122.0" layoutY="161.0" />
+      <TextField fx:id="time" layoutX="122.0" layoutY="161.0" />
       <Label layoutX="53.0" layoutY="204.0" text="Comment" />
-      <TextField layoutX="122.0" layoutY="237.0" />
+      <TextField fx:id="difficulty" layoutX="122.0" layoutY="237.0" />
       <Label layoutX="56.0" layoutY="241.0" text="Difficulty" />
-      <TextField layoutX="122.0" layoutY="200.0" />
+      <TextField fx:id="comment" layoutX="122.0" layoutY="200.0" />
       <Label layoutX="54.0" layoutY="274.0" text="Total time" />
-      <TextField layoutX="122.0" layoutY="270.0" />
+      <TextField fx:id="totalTime" layoutX="122.0" layoutY="270.0" />
       <Label layoutX="66.0" layoutY="309.0" text="Rating" />
-      <TextField layoutX="122.0" layoutY="305.0" />
-      <TextField layoutX="122.0" layoutY="84.0" />
+      <TextField fx:id="rating" layoutX="122.0" layoutY="305.0" />
+      <TextField fx:id="tourId" layoutX="122.0" layoutY="84.0" />
       <Label layoutX="66.0" layoutY="88.0" text="Tour id" />
-      <Button layoutX="347.0" layoutY="338.0" mnemonicParsing="false" text="Add to Tour" />
+      <Button fx:id="submit" layoutX="347.0" layoutY="338.0" mnemonicParsing="false" text="Add to Tour" />
       <Label layoutX="71.0" layoutY="36.0" text="Create LogTour" />
    </children>
 </AnchorPane>
