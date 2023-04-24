@@ -15,34 +15,45 @@ import java.util.ResourceBundle;
 public class TourLogController implements Initializable {
 
     @Autowired
-    NewTourLogViewModel tourLogViewModel;
+    NewTourLogViewModel newTourLogViewModel;
 
     @FXML
-    private TextField tourid;
+    private TextField touridTextBox;
 
     @FXML
-    private TextField date;
+    private TextField dateTextBox;
 
     @FXML
-    private TextField time;
+    private TextField timeTextBox;
 
     @FXML
-    private TextField comment;
+    private TextField commentTextBox;
 
     @FXML
-    private TextField difficulty;
+    private TextField difficultyTextBox;
 
     @FXML
-    private TextField totalTime;
+    private TextField totalTimeTextBox;
 
     @FXML
-    private TextField rating;
+    private TextField ratingTextBox;
 
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //tourid.textProperty().bindBidirectional(NewTourLogViewModel());
+    public void initialize(URL location, ResourceBundle rb) {
 
+        touridTextBox.textProperty().bindBidirectional(newTourLogViewModel.tourIdProperty());
+        dateTextBox.textProperty().bindBidirectional(newTourLogViewModel.dateProperty());
+        timeTextBox.textProperty().bindBidirectional(newTourLogViewModel.timeProperty());
+        commentTextBox.textProperty().bindBidirectional(newTourLogViewModel.commentProperty());
+        difficultyTextBox.textProperty().bindBidirectional(newTourLogViewModel.difficultyProperty());
+        totalTimeTextBox.textProperty().bindBidirectional(newTourLogViewModel.totalTimeProperty());
+        ratingTextBox.textProperty().bindBidirectional(newTourLogViewModel.ratingProperty());
     }
+    public void tourLogSubmitButtonAction(){
+        //pack the bound data from the viewmodel into a dto and ship to service
+        newTourLogViewModel.saveTourLog();
+    }
+
 }

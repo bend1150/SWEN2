@@ -32,10 +32,9 @@ public class NewTourLogViewModel {
         return tourId.get();
     }
 
-    public SimpleStringProperty tourIdProperty() {
+    public StringProperty tourIdProperty() {
         return tourId;
     }
-
     public void setTourId(String tourId) {
         this.tourId.set(tourId);
     }
@@ -43,7 +42,7 @@ public class NewTourLogViewModel {
         return date.get();
     }
 
-    public SimpleStringProperty dateProperty() {
+    public StringProperty dateProperty() {
         return date;
     }
 
@@ -51,11 +50,12 @@ public class NewTourLogViewModel {
         this.date.set(date);
     }
 
+
     public String getTime() {
         return time.get();
     }
 
-    public SimpleStringProperty timeProperty() {
+    public StringProperty timeProperty() {
         return time;
     }
 
@@ -67,7 +67,7 @@ public class NewTourLogViewModel {
         return comment.get();
     }
 
-    public SimpleStringProperty commentProperty() {
+    public StringProperty commentProperty() {
         return comment;
     }
 
@@ -79,7 +79,7 @@ public class NewTourLogViewModel {
         return difficulty.get();
     }
 
-    public SimpleStringProperty difficultyProperty() {
+    public StringProperty difficultyProperty() {
         return difficulty;
     }
 
@@ -91,7 +91,7 @@ public class NewTourLogViewModel {
         return totalTime.get();
     }
 
-    public SimpleStringProperty totalTimeProperty() {
+    public StringProperty totalTimeProperty() {
         return totalTime;
     }
 
@@ -103,7 +103,7 @@ public class NewTourLogViewModel {
         return rating.get();
     }
 
-    public SimpleStringProperty ratingProperty() {
+    public StringProperty ratingProperty() {
         return rating;
     }
 
@@ -137,13 +137,13 @@ public class NewTourLogViewModel {
         List<TourLog> tourLogs = tourLogService.getTourLogList();
         for (TourLog t: tourLogs
         ) {
-            System.out.println(t.getTourId());
-            System.out.println(t.getDate());
-            System.out.println(t.getTime());
-            System.out.println(t.getComment());
-            System.out.println(t.getDifficulty());
-            System.out.println(t.getTotalTime());
-            System.out.println(t.getRating());
+            System.out.println("TourID:"+t.getTourId());
+            System.out.println("Date:"+t.getDate());
+            System.out.println("Time:"+t.getTime());
+            System.out.println("Comment:"+t.getComment());
+            System.out.println("Difficulty:"+t.getDifficulty());
+            System.out.println("TotalTime:"+t.getTotalTime());
+            System.out.println("Ratings:"+t.getRating());
 
         }
     }

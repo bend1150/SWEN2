@@ -6,11 +6,30 @@ import org.springframework.stereotype.Component;
 public class TourLogMapper extends AbstractMapper<TourLogEntity, TourLog>{
     @Override
     public TourLog fromEntity(TourLogEntity entity) {
-        return null;
+        return TourLog.builder()
+                .id(entity.getId())
+                .tourId(entity.getTourId())
+                .date(entity.getDate())
+                .time(entity.getTime())
+                .comment(entity.getComment())
+                .difficulty(entity.getDifficulty())
+                .totalTime(entity.getTotalTime())
+                .rating(entity.getRating())
+                .build();
     }
 
     @Override
-    public TourLogEntity toEntity(TourLog dto) {
-        return null;
+    public TourLogEntity toEntity(TourLog tourLog) {
+        return TourLogEntity.builder()
+                .id(tourLog.getId())
+                .tourId(tourLog.getTourId())
+                .date(tourLog.getDate())
+                .time(tourLog.getTime())
+                .comment(tourLog.getComment())
+                .difficulty(tourLog.getDifficulty())
+                .totalTime(tourLog.getTotalTime())
+                .rating(tourLog.getRating())
+                .build();
+
     }
 }
