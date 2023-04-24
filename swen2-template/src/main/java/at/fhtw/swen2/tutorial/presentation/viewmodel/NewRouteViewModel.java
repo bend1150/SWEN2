@@ -21,6 +21,9 @@ public class NewRouteViewModel {
     @Autowired
     private RouteService routeService;
 
+    @Autowired
+    private RouteListViewModel routeListViewModel;
+
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
     private SimpleStringProperty origin = new SimpleStringProperty();
@@ -76,9 +79,8 @@ public class NewRouteViewModel {
         routeService.addNew(tour);
 
         List<Tour> tours = routeService.getRouteList();
-        for (Tour t: tours
-             ) {
-            System.out.println(t.getName());
-        }
+
+
+        routeListViewModel.updateTourList(tours);
     }
 }
