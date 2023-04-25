@@ -33,6 +33,9 @@ public class NewRouteViewModel {
     private SimpleStringProperty time = new SimpleStringProperty();
 
 
+    private SimpleStringProperty buttonName = new SimpleStringProperty();
+
+
     //dto object, that will be filled
     private Tour tour;
 
@@ -64,6 +67,10 @@ public class NewRouteViewModel {
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
 
+    public String getButtonName() { return buttonName.get(); }
+    public StringProperty buttonNameProperty() { return buttonName; }
+    public void setButtonName(String buttonName) { this.buttonName.set(buttonName); }
+
     public void saveRoute(){
         tour = Tour.builder()
                 .name(getName())
@@ -82,5 +89,15 @@ public class NewRouteViewModel {
 
 
         routeListViewModel.updateTourList(tours);
+    }
+
+
+    public void addOrUpdate(int tabIndex){
+        if(tabIndex == 1){
+            setButtonName("Update");
+        }
+        else{
+            setButtonName("Create");
+        }
     }
 }

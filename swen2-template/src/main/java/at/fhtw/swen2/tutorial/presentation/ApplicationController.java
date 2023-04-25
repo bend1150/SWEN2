@@ -2,16 +2,23 @@ package at.fhtw.swen2.tutorial.presentation;
 
 import at.fhtw.swen2.tutorial.presentation.events.ApplicationShutdownEvent;
 import at.fhtw.swen2.tutorial.presentation.view.AboutDialogController;
+import at.fhtw.swen2.tutorial.presentation.viewmodel.NewRouteViewModel;
+import at.fhtw.swen2.tutorial.presentation.viewmodel.NewTourLogViewModel;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -35,6 +42,15 @@ public class ApplicationController implements Initializable, StageAware {
     
     // Toolbar, at some point break out
     @FXML Label tbMonitorStatus;
+
+
+    @FXML
+    TabPane tabPane;
+
+    @Autowired
+    NewRouteViewModel newRouteViewModel;
+
+
     Circle monitorStatusIcon = new Circle(8);
 
     SimpleObjectProperty<Stage> stage = new SimpleObjectProperty<>();
@@ -48,6 +64,16 @@ public class ApplicationController implements Initializable, StageAware {
     public void initialize(URL location, ResourceBundle rb) {
         stage.addListener((obv, o, n) -> n.setTitle(rb.getString("app.title")));
         tbMonitorStatus.setGraphic(monitorStatusIcon);
+
+        tabPane.getSelectionModel().selectedIndexProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        newRouteViewModel.addOrUpdate(tabPane.getSelectionModel().getSelectedIndex());
+                    }
+                }
+        );
+
     }
 
     @FXML

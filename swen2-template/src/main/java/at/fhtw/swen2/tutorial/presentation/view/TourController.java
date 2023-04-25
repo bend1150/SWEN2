@@ -3,6 +3,7 @@ package at.fhtw.swen2.tutorial.presentation.view;
 import at.fhtw.swen2.tutorial.presentation.viewmodel.NewRouteViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class TourController implements Initializable {
     @FXML
     private TextField timeTextBox;
 
+    @FXML
+    private Button submitButton;
+
     @Override
     public void initialize(URL location, ResourceBundle rb){
         nameTextBox.textProperty().bindBidirectional(newRouteViewModel.nameProperty());
@@ -41,6 +45,8 @@ public class TourController implements Initializable {
         transportTextBox.textProperty().bindBidirectional(newRouteViewModel.transportProperty());
         distanceTextBox.textProperty().bindBidirectional(newRouteViewModel.distanceProperty());
         timeTextBox.textProperty().bindBidirectional(newRouteViewModel.timeProperty());
+
+        submitButton.textProperty().bindBidirectional(newRouteViewModel.buttonNameProperty());
     }
 
     public void submitButtonAction(){
