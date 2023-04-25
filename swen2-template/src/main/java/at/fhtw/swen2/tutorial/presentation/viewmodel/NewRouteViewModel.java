@@ -93,7 +93,9 @@ public class NewRouteViewModel {
 
 
     public void addOrUpdate(int tabIndex){
-        if(tabIndex == 1){
+        int test = routeListViewModel.listIndex;
+
+        if(test == 0){
             setButtonName("Update");
         }
         else{

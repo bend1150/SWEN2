@@ -61,4 +61,10 @@ public class RouteListViewModel {
 
         tourList.setAll(tourNames);
     }
+
+    public int listIndex = -1;
+
+    public void updateSelectedIndex(int index){
+        listIndex = index;
+    }
 }

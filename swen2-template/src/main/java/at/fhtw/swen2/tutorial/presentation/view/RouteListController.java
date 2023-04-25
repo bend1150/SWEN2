@@ -1,6 +1,8 @@
 package at.fhtw.swen2.tutorial.presentation.view;
 
 import at.fhtw.swen2.tutorial.presentation.viewmodel.RouteListViewModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,6 +31,16 @@ public class RouteListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle rb){
         tourList.itemsProperty().bindBidirectional(routeListViewModel.tourListPropertyProperty());
+
+        tourList.getSelectionModel().selectedIndexProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                        int index = tourList.getSelectionModel().getSelectedIndex();
+                        routeListViewModel.updateSelectedIndex(index);
+                    }
+                }
+        );
     }
 
 }
