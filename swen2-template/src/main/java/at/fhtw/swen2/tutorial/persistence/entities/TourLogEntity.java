@@ -18,7 +18,7 @@ public class TourLogEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long tourId;
+    //private Long tourId;
 
     private String date;
     private float time;

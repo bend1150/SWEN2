@@ -60,7 +60,5 @@ public class RouteListViewModel {
         }
 
         tourList.setAll(tourNames);
-
-        //update table
     }
 }
