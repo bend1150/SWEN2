@@ -85,15 +85,12 @@ public class NewRouteViewModel {
 
         routeService.addNew(tour);
 
-        List<Tour> tours = routeService.getRouteList();
-
-
-        routeListViewModel.updateTourList(tours);
+        routeListViewModel.addTourList(tour);
     }
 
 
     public void addOrUpdate(int tabIndex){
-        int test = routeListViewModel.listIndex;
+        int test = routeListViewModel.getListIndex();
 
         if(test == 0){
             setButtonName("Update");

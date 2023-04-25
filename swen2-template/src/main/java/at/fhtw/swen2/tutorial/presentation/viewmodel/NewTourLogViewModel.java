@@ -145,16 +145,6 @@ public class NewTourLogViewModel {
 
 
     private void addLog(TourLog tourLog){
-        logList.clear();
-
-        List<TourLog> list;
-        List<String> names = new ArrayList<>();
-
-        list = tourLogService.getTourLogList();
-
-        for (TourLog log : list
-             ) {
-            names.add(log.getDifficulty());
-        }
+        logList.add(tourLog);
     }
 }

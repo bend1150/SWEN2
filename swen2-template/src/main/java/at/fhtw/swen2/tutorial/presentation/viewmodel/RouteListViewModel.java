@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import lombok.Data;
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
@@ -26,11 +27,13 @@ import static java.lang.Float.parseFloat;
 import static javafx.collections.FXCollections.observableArrayList;
 
 @Component
+@Data
 public class RouteListViewModel {
 
-    public ObservableList<String> tourList = FXCollections.observableArrayList();
+    public ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
+    private int listIndex = -1;
 
     public Object getTourListProperty() {
         return tourListProperty.get();
@@ -42,27 +45,18 @@ public class RouteListViewModel {
         return tourListProperty;
     }
 
-    public ObservableList<String> getTourList() {
+    public ObservableList<Tour> getTourList() {
         return tourList;
     }
 
-    public void setTourList(ObservableList<String> tourList) {
+    public void setTourList(ObservableList<Tour> tourList) {
         this.tourList = tourList;
     }
 
 
-    public void updateTourList(List<Tour> tours){
-        tourList.clear();
-        List<String> tourNames = new ArrayList<>();
-        for (Tour tour: tours
-             ) {
-            tourNames.add(tour.getName());
-        }
-
-        tourList.setAll(tourNames);
+    public void addTourList(Tour tour){
+        tourList.add(tour);
     }
-
-    public int listIndex = -1;
 
     public void updateSelectedIndex(int index){
         listIndex = index;
