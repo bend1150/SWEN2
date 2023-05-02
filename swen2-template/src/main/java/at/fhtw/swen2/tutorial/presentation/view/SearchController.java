@@ -38,6 +38,10 @@ public class SearchController {
     }
 
     public void searchRoutes(ActionEvent actionEvent) {
-
+    /*
+    String searchTerm = searchTextField.getText();
+    searchViewModel.setSearchTerm(searchTerm);
+    searchViewModel.search();
+    */
     }
 }

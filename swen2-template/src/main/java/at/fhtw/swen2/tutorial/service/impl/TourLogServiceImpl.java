@@ -31,7 +31,7 @@ public class TourLogServiceImpl implements TourLogService {
 
 
     @Override
-    public List<TourLog> getTourLogList() {
+    public List<TourLog> getTourLogList() {     //get list from database using tourLogRepository
 
         return tourLogMapper.fromEntity(tourLogRepository.findAll());
     }

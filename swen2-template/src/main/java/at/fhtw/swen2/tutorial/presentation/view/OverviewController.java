@@ -18,6 +18,10 @@ public class OverviewController implements Initializable {
     @FXML
     private TableView tourTable;
 
+    //specify the type of object that will be displayed in table:
+    //@FXML
+    //private TableView<Tour> tourTable:
+
     @Override
     public void initialize(URL location, ResourceBundle rb){
 
