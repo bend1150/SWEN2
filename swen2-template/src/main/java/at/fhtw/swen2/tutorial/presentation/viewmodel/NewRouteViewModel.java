@@ -90,18 +90,6 @@ public class NewRouteViewModel {
 
         routeService.addNew(tour);
 
-        routeListViewModel.addTourList(tour);
-    }
-
-
-    public void addOrUpdate(){
-        int test = routeListViewModel.getListIndex();
-
-        if(test == 0){
-            setButtonName("Update");
-        }
-        else{
-            setButtonName("Create");
-        }
+        routeListViewModel.updateTourList();
     }
 }

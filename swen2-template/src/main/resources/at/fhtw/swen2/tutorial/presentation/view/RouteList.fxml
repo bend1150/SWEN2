@@ -13,6 +13,7 @@
             <ListView fx:id="tourList" layoutY="-4.0" prefHeight="337.0" prefWidth="200.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="addButton" onAction="#addRoute" layoutX="83.0" layoutY="19.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" text="+" />
+      <Button fx:id="addButton" layoutX="83.0" layoutY="19.0" mnemonicParsing="false" onAction="#addRoute" prefHeight="25.0" prefWidth="26.0" text="+" />
+      <Button fx:id="deleteButton" layoutX="120.0" layoutY="19.0" mnemonicParsing="false" onAction="#deleteRoute" prefHeight="25.0" prefWidth="26.0" text="-" />
    </children>
 </AnchorPane>

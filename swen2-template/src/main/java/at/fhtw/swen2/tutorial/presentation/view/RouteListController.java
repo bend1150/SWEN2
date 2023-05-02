@@ -63,6 +63,10 @@ public class RouteListController implements Initializable {
         }
     }
 
+    public void deleteRoute(){
+        routeListViewModel.deleteSelected(tourList.getSelectionModel().getSelectedIndex());
+    }
+
 
 
 

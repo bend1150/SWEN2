@@ -42,4 +42,10 @@ public class RouteServiceImpl implements RouteService {
     public Tour getByName(String name) {
         return null;
     }
+
+
+    @Override
+    public void deleteById(long id){
+        routeRepository.deleteById(id);
+    }
 }

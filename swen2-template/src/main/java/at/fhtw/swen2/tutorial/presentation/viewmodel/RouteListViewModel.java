@@ -1,6 +1,7 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
+import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import lombok.Data;
@@ -30,6 +32,9 @@ import static javafx.collections.FXCollections.observableArrayList;
 @Data
 public class RouteListViewModel {
 
+    @Autowired
+    RouteService routeService;
+
     public ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
@@ -38,7 +43,6 @@ public class RouteListViewModel {
     public Object getTourListProperty() {
         return tourListProperty.get();
     }
-
 
 
     public SimpleListProperty tourListPropertyProperty() {
@@ -60,5 +64,28 @@ public class RouteListViewModel {
 
     public void updateSelectedIndex(int index){
         listIndex = index;
+    }
+
+
+    public void deleteSelected(int selectedIndex){
+        System.out.println("Deleting index: " + selectedIndex);
+        if(selectedIndex == -1){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Select a Tour to delete first");
+            alert.showAndWait();
+            return;
+        }
+        long deletedId = tourList.get(selectedIndex).getId();
+
+        routeService.deleteById(deletedId); //delete
+
+        updateTourList();
+    }
+
+    public void updateTourList(){
+        List<Tour> newTourList = routeService.getRouteList();
+
+        tourList.clear();
+        tourList.setAll(newTourList);
     }
 }

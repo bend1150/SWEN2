@@ -65,14 +65,7 @@ public class ApplicationController implements Initializable, StageAware {
         stage.addListener((obv, o, n) -> n.setTitle(rb.getString("app.title")));
         tbMonitorStatus.setGraphic(monitorStatusIcon);
 
-        tabPane.getSelectionModel().selectedIndexProperty().addListener(
-                new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        newRouteViewModel.addOrUpdate();
-                    }
-                }
-        );
+
 
     }
 
