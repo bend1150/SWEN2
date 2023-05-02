@@ -7,6 +7,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -89,7 +94,7 @@ public class NewRouteViewModel {
     }
 
 
-    public void addOrUpdate(int tabIndex){
+    public void addOrUpdate(){
         int test = routeListViewModel.getListIndex();
 
         if(test == 0){

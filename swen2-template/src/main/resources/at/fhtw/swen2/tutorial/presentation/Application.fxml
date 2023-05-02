@@ -58,12 +58,6 @@
                </content>
           </Tab>
             <!--<Tab text="%tab.logs.title">-->
-            <Tab text="Tour">
-                <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
-                    <fx:include source="view/TourEditor.fxml" />
-                </VBox>
-            </Tab>
-            <!--<Tab text="%tab.logs.title">-->
             <Tab text="TourLog">
                 <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
                     <fx:include source="view/TourLog.fxml" />

@@ -3,9 +3,14 @@ package at.fhtw.swen2.tutorial.presentation.view;
 import at.fhtw.swen2.tutorial.presentation.viewmodel.NewRouteViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +55,6 @@ public class TourController implements Initializable {
     }
 
     public void submitButtonAction(){
-        //pack the bound data from the viewmodel into a dto and ship to service
         newRouteViewModel.saveRoute();
     }
 

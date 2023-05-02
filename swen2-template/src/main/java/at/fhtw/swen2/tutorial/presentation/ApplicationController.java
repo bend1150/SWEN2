@@ -69,7 +69,7 @@ public class ApplicationController implements Initializable, StageAware {
                 new ChangeListener<Number>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        newRouteViewModel.addOrUpdate(tabPane.getSelectionModel().getSelectedIndex());
+                        newRouteViewModel.addOrUpdate();
                     }
                 }
         );
