@@ -1,5 +1,6 @@
 package at.fhtw.swen2.tutorial.presentation.view;
 
+import at.fhtw.swen2.tutorial.presentation.viewmodel.EditRouteViewModel;
 import at.fhtw.swen2.tutorial.presentation.viewmodel.NewRouteViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +19,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class TourController implements Initializable {
+public class TourEditController implements Initializable {
 
     @Autowired
-    NewRouteViewModel newRouteViewModel;
+    EditRouteViewModel editRouteViewModel;
+
+    @Autowired
+    RouteListController routeListController;
 
     @FXML
     private TextField nameTextBox;
@@ -43,18 +47,18 @@ public class TourController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle rb){
-        nameTextBox.textProperty().bindBidirectional(newRouteViewModel.nameProperty());
-        descriptionTextBox.textProperty().bindBidirectional(newRouteViewModel.descriptionProperty());
-        originTextBox.textProperty().bindBidirectional(newRouteViewModel.originProperty());
-        destinationTextBox.textProperty().bindBidirectional(newRouteViewModel.destinationProperty());
-        transportTextBox.textProperty().bindBidirectional(newRouteViewModel.transportProperty());
-        distanceTextBox.textProperty().bindBidirectional(newRouteViewModel.distanceProperty());
-        timeTextBox.textProperty().bindBidirectional(newRouteViewModel.timeProperty());
+        nameTextBox.textProperty().bindBidirectional(editRouteViewModel.nameProperty());
+        descriptionTextBox.textProperty().bindBidirectional(editRouteViewModel.descriptionProperty());
+        originTextBox.textProperty().bindBidirectional(editRouteViewModel.originProperty());
+        destinationTextBox.textProperty().bindBidirectional(editRouteViewModel.destinationProperty());
+        transportTextBox.textProperty().bindBidirectional(editRouteViewModel.transportProperty());
+        distanceTextBox.textProperty().bindBidirectional(editRouteViewModel.distanceProperty());
+        timeTextBox.textProperty().bindBidirectional(editRouteViewModel.timeProperty());
 
     }
 
     public void submitButtonAction(){
-        newRouteViewModel.saveRoute();
+        editRouteViewModel.updateRoute(routeListController.tourList.getSelectionModel().getSelectedItem());
     }
 
 

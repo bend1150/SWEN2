@@ -15,5 +15,6 @@
       </AnchorPane>
       <Button fx:id="addButton" layoutX="83.0" layoutY="19.0" mnemonicParsing="false" onAction="#addRoute" prefHeight="25.0" prefWidth="26.0" text="+" />
       <Button fx:id="deleteButton" layoutX="120.0" layoutY="19.0" mnemonicParsing="false" onAction="#deleteRoute" prefHeight="25.0" prefWidth="26.0" text="-" />
+      <Button fx:id="editButton" layoutX="158.0" layoutY="19.0" mnemonicParsing="false" onAction="#editRoute" prefHeight="25.0" prefWidth="45.0" text="Edit" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package at.fhtw.swen2.tutorial.presentation.view;
 
+import at.fhtw.swen2.tutorial.presentation.viewmodel.EditRouteViewModel;
 import at.fhtw.swen2.tutorial.presentation.viewmodel.RouteListViewModel;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -31,7 +33,7 @@ import java.util.ResourceBundle;
 @Component
 public class RouteListController implements Initializable {
     @FXML
-    private ListView<Tour> tourList;
+    public ListView<Tour> tourList;
 
     @Autowired
     RouteListViewModel routeListViewModel;
@@ -39,11 +41,17 @@ public class RouteListController implements Initializable {
     @Autowired
     TourController tourController;
 
+    @Autowired
+    TourEditController tourEditController;
+
+    @Autowired
+    EditRouteViewModel editRouteViewModel;
+
     public void addRoute(){
         //pack the bound data from the viewmodel into a dto and ship to service
         try{
             // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TourEditor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TourCreator.fxml"));
             fxmlLoader.setController(tourController);
             Parent root = fxmlLoader.load();
 
@@ -67,6 +75,37 @@ public class RouteListController implements Initializable {
         routeListViewModel.deleteSelected(tourList.getSelectionModel().getSelectedIndex());
     }
 
+    public void editRoute(){
+        if(tourList.getSelectionModel().getSelectedIndex() == -1){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Select a Tour to edit first");
+            alert.showAndWait();
+            return;
+        }
+
+        editRouteViewModel.setProperties(tourList.getSelectionModel().getSelectedIndex());
+
+        try{
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TourEditor.fxml"));
+            fxmlLoader.setController(tourEditController);
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage and set the scene
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+
+            // Set the modality to WINDOW_MODAL
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+
+            // Set the title and show the stage
+            dialogStage.setTitle("Custom Dialog");
+            dialogStage.showAndWait();
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
 
 
 

@@ -48,4 +48,9 @@ public class RouteServiceImpl implements RouteService {
     public void deleteById(long id){
         routeRepository.deleteById(id);
     }
+
+    @Override
+    public Tour getById(long id){
+        return tourMapper.fromEntity(routeRepository.getById(id));
+    }
 }
