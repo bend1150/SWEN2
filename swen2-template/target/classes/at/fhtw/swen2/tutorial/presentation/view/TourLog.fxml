@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.swen2.tutorial.presentation.view.TourLogController">
+   <children>
+      <Label layoutX="71.0" layoutY="86.0" text="Date" />
+      <TextField fx:id="dateTextBox" layoutX="122.0" layoutY="82.0" />
+      <Label layoutX="71.0" layoutY="120.0" text="Time" />
+      <TextField fx:id="timeTextBox" layoutX="122.0" layoutY="116.0" />
+      <Label layoutX="53.0" layoutY="151.0" text="Comment" />
+      <TextField fx:id="commentTextBox" layoutX="122.0" layoutY="147.0" />
+      <Label layoutX="55.0" layoutY="187.0" text="Difficulty" />
+      <TextField fx:id="difficultyTextBox" layoutX="122.0" layoutY="183.0" />
+      <Label layoutX="52.0" layoutY="224.0" text="Total time" />
+      <TextField fx:id="totalTimeTextBox" layoutX="122.0" layoutY="220.0" />
+      <Label layoutX="66.0" layoutY="259.0" text="Rating" />
+      <TextField fx:id="ratingTextBox" layoutX="122.0" layoutY="255.0" />
+      <Button id="tourLogSubmitButton" layoutX="191.0" layoutY="304.0" mnemonicParsing="false" onAction="#tourLogSubmitButtonAction" text="Add to Tour" />
+      <Label layoutX="71.0" layoutY="36.0" text="Create LogTour" />
+      <ListView fx:id="tourLogList" layoutX="327.0" layoutY="43.0" prefHeight="287.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
