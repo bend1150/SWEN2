@@ -1,5 +1,6 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
+import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
@@ -21,7 +22,7 @@ import static java.lang.Float.parseFloat;
 
 
 @Component
-public class NewRouteViewModel {
+public class EditRouteViewModel {
 
     @Autowired
     private RouteService routeService;
@@ -36,6 +37,7 @@ public class NewRouteViewModel {
     private SimpleStringProperty transport = new SimpleStringProperty();
     private SimpleStringProperty distance = new SimpleStringProperty();
     private SimpleStringProperty time = new SimpleStringProperty();
+
 
 
     //dto object, that will be filled
@@ -69,7 +71,13 @@ public class NewRouteViewModel {
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
 
-    public void saveRoute(){
+
+    public void updateRoute(Tour selectedTour){
+
+        //delete old
+        routeService.deleteById(selectedTour.getId());
+
+        //save new
         tour = Tour.builder()
                 .name(getName())
                 .description(getDescription())
@@ -84,5 +92,19 @@ public class NewRouteViewModel {
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
+    }
+
+    public void setProperties(int index){
+        long id = routeListViewModel.tourList.get(index).getId();
+        Tour tour = routeService.getById(id);
+
+        setName(tour.getName());
+        setDescription(tour.getDescription());
+        setOrigin(tour.getOrigin());
+        setDestination(tour.getDestination());
+        setTransport(tour.getTransportType());
+        setDistance(Float.toString(tour.getDistance()));
+        setTime(Float.toString(tour.getTime()));
+        
     }
 }

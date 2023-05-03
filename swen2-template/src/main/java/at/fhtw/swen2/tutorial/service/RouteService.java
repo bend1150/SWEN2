@@ -11,4 +11,8 @@ public interface RouteService {
     Tour addNew(Tour tour);
 
     Tour getByName(String name);
+
+    void deleteById(long id);
+
+    Tour getById(long id);
 }

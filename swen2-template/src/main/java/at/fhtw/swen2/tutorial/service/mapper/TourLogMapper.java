@@ -8,7 +8,7 @@ public class TourLogMapper extends AbstractMapper<TourLogEntity, TourLog>{
     public TourLog fromEntity(TourLogEntity entity) {
         return TourLog.builder()
                 .id(entity.getId())
-                .tourId(entity.getTourId())
+                //.tourId(entity.getTourId())
                 .date(entity.getDate())
                 .time(entity.getTime())
                 .comment(entity.getComment())
@@ -22,7 +22,7 @@ public class TourLogMapper extends AbstractMapper<TourLogEntity, TourLog>{
     public TourLogEntity toEntity(TourLog tourLog) {
         return TourLogEntity.builder()
                 .id(tourLog.getId())
-                .tourId(tourLog.getTourId())
+                //.tourId(tourLog.getTourId())
                 .date(tourLog.getDate())
                 .time(tourLog.getTime())
                 .comment(tourLog.getComment())

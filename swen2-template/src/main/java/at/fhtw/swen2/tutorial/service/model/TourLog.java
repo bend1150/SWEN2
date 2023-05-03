@@ -9,7 +9,7 @@ public class TourLog {
 
     private long id;
 
-    private long tourId;
+    //private long tourId;
     private String date;
     private float time;
     private String comment;

@@ -4,9 +4,12 @@ import at.fhtw.swen2.tutorial.service.TourLogService;
 import at.fhtw.swen2.tutorial.service.model.TourLog;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Float.parseFloat;
@@ -18,8 +21,6 @@ public class NewTourLogViewModel {
     private TourLogService tourLogService;
 
 
-
-    private SimpleStringProperty tourId = new SimpleStringProperty();
     private SimpleStringProperty date = new SimpleStringProperty();
     private SimpleStringProperty time = new SimpleStringProperty();
     private SimpleStringProperty comment = new SimpleStringProperty();
@@ -27,17 +28,18 @@ public class NewTourLogViewModel {
     private SimpleStringProperty totalTime = new SimpleStringProperty();
     private SimpleStringProperty rating = new SimpleStringProperty();
 
+    private ObservableList logList = FXCollections.observableArrayList();
 
-    public String getTourId() {
-        return tourId.get();
+    private SimpleListProperty logListProperty = new SimpleListProperty(logList);
+
+
+
+    public SimpleListProperty logListPropertyProperty() {
+        return logListProperty;
     }
 
-    public StringProperty tourIdProperty() {
-        return tourId;
-    }
-    public void setTourId(String tourId) {
-        this.tourId.set(tourId);
-    }
+
+
     public String getDate() {
         return date.get();
     }
@@ -112,16 +114,20 @@ public class NewTourLogViewModel {
     }
 
 
+    public ObservableList getLogList() {
+        return logList;
+    }
+
+    public void setLogList(ObservableList logs) {
+        this.logList.setAll(logs);
+    }
+
+
 
     private TourLog tourLog;
 
-
-
-
-
     public void saveTourLog(){
         tourLog = TourLog.builder()
-                .tourId(Long.parseLong(getTourId()))
                 .date(getDate())
                 .time(parseFloat(getTime()))
                 .comment(getComment())
@@ -134,17 +140,11 @@ public class NewTourLogViewModel {
 
         tourLogService.addNew(tourLog);
 
-        List<TourLog> tourLogs = tourLogService.getTourLogList();
-        for (TourLog t: tourLogs
-        ) {
-            System.out.println("TourID:"+t.getTourId());
-            System.out.println("Date:"+t.getDate());
-            System.out.println("Time:"+t.getTime());
-            System.out.println("Comment:"+t.getComment());
-            System.out.println("Difficulty:"+t.getDifficulty());
-            System.out.println("TotalTime:"+t.getTotalTime());
-            System.out.println("Ratings:"+t.getRating());
+        addLog(tourLog);
+    }
 
-        }
+
+    private void addLog(TourLog tourLog){
+        logList.add(tourLog);
     }
 }

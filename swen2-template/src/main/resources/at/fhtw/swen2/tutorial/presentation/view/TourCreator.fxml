@@ -11,14 +11,14 @@
       <AnchorPane prefHeight="411.0" prefWidth="600.0">
          <children>
             <Label layoutX="55.0" layoutY="204.0" text="Transport" />
-            <TextField fx:id="nameTextBox" editable="false" layoutX="139.0" layoutY="53.0" />
+            <TextField fx:id="nameTextBox" layoutX="139.0" layoutY="53.0" />
             <TextField fx:id="descriptionTextBox" layoutX="139.0" layoutY="88.0" />
             <TextField fx:id="originTextBox" layoutX="139.0" layoutY="124.0" />
             <TextField fx:id="destinationTextBox" layoutX="139.0" layoutY="162.0" />
             <TextField fx:id="transportTextBox" layoutX="139.0" layoutY="200.0" />
             <TextField fx:id="distanceTextBox" layoutX="139.0" layoutY="236.0" />
             <TextField fx:id="timeTextBox" layoutX="139.0" layoutY="274.0" />
-            <Button fx:id="submitButton" layoutX="360.0" layoutY="274.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="25.0" prefWidth="171.0" text="Update" />
+            <Button fx:id="submitButton" layoutX="360.0" layoutY="274.0" mnemonicParsing="false" onAction="#submitButtonAction" prefHeight="25.0" prefWidth="171.0" text="Create"/>
             <Label layoutX="55.0" layoutY="57.0" text="Name" />
             <Label layoutX="55.0" layoutY="92.0" text="Description" />
             <Label layoutX="55.0" layoutY="128.0" text="Origin" />

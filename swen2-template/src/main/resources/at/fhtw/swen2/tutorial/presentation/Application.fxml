@@ -34,7 +34,7 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" fx:id="tabPane">
         <tabs>
           <Tab text="%tab.demo.title">
                <content>
@@ -57,12 +57,6 @@
                   </SplitPane>
                </content>
           </Tab>
-            <!--<Tab text="%tab.logs.title">-->
-            <Tab text="Tour">
-                <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
-                    <fx:include source="view/TourEditor.fxml" />
-                </VBox>
-            </Tab>
             <!--<Tab text="%tab.logs.title">-->
             <Tab text="TourLog">
                 <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
