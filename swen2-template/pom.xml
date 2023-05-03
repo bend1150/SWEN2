@@ -79,10 +79,17 @@
         </dependency>
 
         <!-- MapQuest-->
+    <!--
     <dependency>
         <groupId>com.bytebybyte</groupId>
         <artifactId>mapquest-open-geocoding</artifactId>
         <version>1.0.0</version>
+    </dependency>
+    -->
+    <dependency>
+        <groupId>com.mapquest</groupId>
+        <artifactId>mapquest-java-sdk</artifactId>
+        <version>1.3.0</version>
     </dependency>
 
     <build>

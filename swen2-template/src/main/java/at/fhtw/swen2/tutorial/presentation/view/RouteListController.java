@@ -53,7 +53,7 @@ public class RouteListController implements Initializable {
         String startLocation = logData[0];
         String endLocation = logData[1];
 
-        MapQuestClient
+        //MapQuestClient
     }
 
 }
