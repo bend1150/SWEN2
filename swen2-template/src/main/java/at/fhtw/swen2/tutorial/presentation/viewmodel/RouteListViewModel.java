@@ -35,6 +35,10 @@ public class RouteListViewModel {
     @Autowired
     RouteService routeService;
 
+    @Autowired
+    TourInfoViewModel tourInfoViewModel;
+
+    //replicates the list on the left of the screen 
     public ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
@@ -62,10 +66,6 @@ public class RouteListViewModel {
         tourList.add(tour);
     }
 
-    public void updateSelectedIndex(int index){
-        listIndex = index;
-    }
-
 
     public void deleteSelected(int selectedIndex){
         System.out.println("Deleting index: " + selectedIndex);
@@ -91,5 +91,20 @@ public class RouteListViewModel {
         tourList.setAll(newTourList);
 
         updateSelectedIndex(-1);
+    }
+
+    public void updateSelectedIndex(int index){
+        listIndex = index;
+
+        //if something was selected --> fetch the data
+        if(listIndex == -1){
+            return;
+        }
+
+        //get the Tour info into the tour Info/The map
+        tourInfoViewModel.updateInfo(tourList.get(index));
+
+
+        //get the tourLog info into the tourLog table
     }
 }
