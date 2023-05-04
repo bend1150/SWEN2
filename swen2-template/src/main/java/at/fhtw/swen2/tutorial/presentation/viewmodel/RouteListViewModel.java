@@ -80,6 +80,8 @@ public class RouteListViewModel {
         routeService.deleteById(deletedId); //delete
 
         updateTourList();
+
+        updateSelectedIndex(-1);
     }
 
     public void updateTourList(){
@@ -87,5 +89,7 @@ public class RouteListViewModel {
 
         tourList.clear();
         tourList.setAll(newTourList);
+
+        updateSelectedIndex(-1);
     }
 }

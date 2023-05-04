@@ -60,7 +60,7 @@ public class RouteListController implements Initializable {
             dialogStage.setScene(new Scene(root));
 
             // Set the modality to WINDOW_MODAL
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
 
             // Set the title and show the stage
             dialogStage.setTitle("Custom Dialog");
@@ -72,11 +72,13 @@ public class RouteListController implements Initializable {
     }
 
     public void deleteRoute(){
-        routeListViewModel.deleteSelected(tourList.getSelectionModel().getSelectedIndex());
+        int selectedRouteIndex = routeListViewModel.getListIndex();
+        routeListViewModel.deleteSelected(selectedRouteIndex);
     }
 
     public void editRoute(){
-        if(tourList.getSelectionModel().getSelectedIndex() == -1){
+        int selectedRouteIndex = routeListViewModel.getListIndex();
+        if(selectedRouteIndex == -1){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Select a Tour to edit first");
             alert.showAndWait();
@@ -96,7 +98,7 @@ public class RouteListController implements Initializable {
             dialogStage.setScene(new Scene(root));
 
             // Set the modality to WINDOW_MODAL
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
 
             // Set the title and show the stage
             dialogStage.setTitle("Custom Dialog");
