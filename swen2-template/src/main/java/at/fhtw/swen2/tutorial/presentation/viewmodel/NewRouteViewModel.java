@@ -85,4 +85,16 @@ public class NewRouteViewModel {
 
         routeListViewModel.updateTourList();
     }
+
+    public void cancel(){
+        //clean the form
+        setName(null);
+        setDescription(null);
+        setOrigin(null);
+        setDestination(null);
+        setTransport(null);
+        setDistance(null);
+        setTime(null);
+    }
+
 }

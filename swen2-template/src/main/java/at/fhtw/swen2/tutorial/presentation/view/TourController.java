@@ -39,7 +39,7 @@ public class TourController implements Initializable {
     private TextField timeTextBox;
 
     @FXML
-    private Button submitButton;
+    private Button cancelButton;
 
     @Override
     public void initialize(URL location, ResourceBundle rb){
@@ -55,6 +55,14 @@ public class TourController implements Initializable {
 
     public void submitButtonAction(){
         newRouteViewModel.saveRoute();
+        closeWindow();
+    }
+
+    public void closeWindow(){
+        newRouteViewModel.cancel();
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+
     }
 
 
