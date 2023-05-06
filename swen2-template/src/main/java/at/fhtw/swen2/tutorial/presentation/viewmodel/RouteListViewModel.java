@@ -38,6 +38,9 @@ public class RouteListViewModel {
     @Autowired
     TourInfoViewModel tourInfoViewModel;
 
+    @Autowired
+    TourLogInfoViewModel tourLogInfoViewModel;
+
     //replicates the list on the left of the screen
     public ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
@@ -105,7 +108,7 @@ public class RouteListViewModel {
         //get the Tour info into the tour Info/The map
         tourInfoViewModel.updateInfo(tourList.get(index));
 
-
         //get the tourLog info into the tourLog table
+        tourLogInfoViewModel.showTourLogs(index);
     }
 }

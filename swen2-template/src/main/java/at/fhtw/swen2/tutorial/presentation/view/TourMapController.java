@@ -21,7 +21,7 @@ public class TourMapController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle rb){
-        tourMapViewModel.changeLater();
+
     }
 
 }
