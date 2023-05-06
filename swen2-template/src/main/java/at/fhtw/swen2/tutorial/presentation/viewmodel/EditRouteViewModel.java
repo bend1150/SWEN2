@@ -30,6 +30,9 @@ public class EditRouteViewModel {
     @Autowired
     private RouteListViewModel routeListViewModel;
 
+    @Autowired
+    TourInfoViewModel tourInfoViewModel;
+
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
     private SimpleStringProperty origin = new SimpleStringProperty();
@@ -92,6 +95,7 @@ public class EditRouteViewModel {
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
+        tourInfoViewModel.updateInfo(tour);
     }
 
     public void setProperties(int index){

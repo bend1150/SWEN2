@@ -64,4 +64,14 @@ public class TourInfoViewModel {
         setDistance(Float.toString(tour.getDistance()));
         setTime(Float.toString(tour.getTime()));
     }
+
+    public void clearInfo(){
+        setName("");
+        setDescription("");
+        setOrigin("");
+        setDestination("");
+        setTransport("");
+        setDistance("");
+        setTime("");
+    }
 }

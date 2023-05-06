@@ -38,7 +38,7 @@ public class RouteListViewModel {
     @Autowired
     TourInfoViewModel tourInfoViewModel;
 
-    //replicates the list on the left of the screen 
+    //replicates the list on the left of the screen
     public ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
@@ -82,6 +82,7 @@ public class RouteListViewModel {
         updateTourList();
 
         updateSelectedIndex(-1);
+        tourInfoViewModel.clearInfo();
     }
 
     public void updateTourList(){
