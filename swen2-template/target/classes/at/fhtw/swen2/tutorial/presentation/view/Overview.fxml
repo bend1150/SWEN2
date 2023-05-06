@@ -21,11 +21,7 @@
           </Tab>
           <Tab text="Route">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="500.0">
-                     <children>
-                        <ImageView fitHeight="383.0" fitWidth="685.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </AnchorPane>
+                <fx:include source="RouteMap.fxml" />
             </content>
           </Tab>
             <Tab text="Logs">
