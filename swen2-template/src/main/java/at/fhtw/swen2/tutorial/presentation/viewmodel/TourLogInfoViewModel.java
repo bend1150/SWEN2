@@ -1,12 +1,14 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.service.TourLogService;
+import at.fhtw.swen2.tutorial.service.model.Tour;
 import at.fhtw.swen2.tutorial.service.model.TourLog;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Data
 public class TourLogInfoViewModel {
     @Autowired
     TourLogService tourLogService;
@@ -30,6 +33,9 @@ public class TourLogInfoViewModel {
 
     private List<TourLog> tourLogList = new ArrayList<>();
 
+    private int selectedLogIndex;
+    private Tour selectedTour;
+
     public void showTourLogs(int tourId){
         tourLogNames.clear();
         tourLogNames.add("...");
@@ -41,9 +47,49 @@ public class TourLogInfoViewModel {
         }
     }
 
-    public void printNameOfSelected(int index){
-        String name = tourLogList.get(index).getDate();
-        System.out.println(name);
+    public void updateSelectedLog(){
+        TourLog updatedLog = TourLog.builder()
+                .tourId(selectedTour.getId() - 1)
+                .date(getDate())
+                .time(Float.parseFloat(getTime()))
+                .comment(getComment())
+                .difficulty(getDifficulty())
+                .totalTime(Float.parseFloat(getTotalTime()))
+                .rating(Float.parseFloat(getRating()))
+                .build();
+
+
+        if(this.selectedLogIndex == -1){
+            System.out.println("saving to tour nr: " + selectedTour.getId());
+            tourLogService.addNew(updatedLog);
+        }
+        else {
+            tourLogService.updateByTourId(updatedLog);
+        }
+
+        //tourIds and indexes are one off or something for some reason
+        showTourLogs(Math.toIntExact(selectedTour.getId()) - 1);
+    }
+
+    public void updateTextBoxes(int index){
+        if(index == -1){
+            setDate("");
+            setTime("");
+            setComment("");
+            setDifficulty("");
+            setTotalTime("");
+            setRating("");
+            return;
+        }
+
+        TourLog tourLog = tourLogList.get(index);
+
+        setDate(tourLog.getDate());
+        setTime(Float.toString(tourLog.getTime()));
+        setComment(tourLog.getComment());
+        setDifficulty(tourLog.getDifficulty());
+        setTotalTime(Float.toString(tourLog.getTotalTime()));
+        setRating(Float.toString(tourLog.getRating()));
     }
 
 

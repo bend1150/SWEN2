@@ -59,4 +59,12 @@ public class TourLogServiceImpl implements TourLogService {
         }
         return test;
     }
+
+    @Override
+    public void updateByTourId(TourLog updatedLog){
+        Long id = updatedLog.getId();
+
+        tourLogRepository.deleteById(id);
+        tourLogRepository.save(tourLogMapper.toEntity(updatedLog));
+    }
 }

@@ -12,4 +12,6 @@ public interface TourLogService {
     TourLog addNew(TourLog tourLog);
 
     List<TourLog> getTourLogListByTourId(Long tourId);
+
+    void updateByTourId(TourLog updatedTourLog);
 }

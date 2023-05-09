@@ -1,6 +1,7 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
+import at.fhtw.swen2.tutorial.presentation.view.TourEditController;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
@@ -24,6 +25,8 @@ import static java.lang.Float.parseFloat;
 @Component
 public class EditRouteViewModel {
 
+    @Autowired
+    TourEditController tourEditController;
     @Autowired
     private RouteService routeService;
 
@@ -121,5 +124,28 @@ public class EditRouteViewModel {
         setTransport(null);
         setDistance(null);
         setTime(null);
+    }
+
+    public void openDialog(){
+        try{
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourEditor.fxml"));
+            fxmlLoader.setController(tourEditController);
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage and set the scene
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+
+            // Set the modality to WINDOW_MODAL
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Set the title and show the stage
+            dialogStage.setTitle("Custom Dialog");
+            dialogStage.showAndWait();
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 }

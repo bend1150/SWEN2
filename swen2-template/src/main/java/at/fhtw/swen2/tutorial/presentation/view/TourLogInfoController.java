@@ -37,9 +37,6 @@ public class TourLogInfoController implements Initializable {
     @Autowired
     TourLogInfoViewModel tourLogInfoViewModel;
 
-    @Autowired
-    TourLogService tourLogService;
-
     @Override
     public void initialize(URL location, ResourceBundle rb){
         //event listener to LogComboBox
@@ -48,13 +45,9 @@ public class TourLogInfoController implements Initializable {
                 return;
             }
 
-            if(tourLogComboBox.getSelectionModel().getSelectedItem().equals("...")){
-                //empty the data, create new tourLog on buttonClick
-            }else {
-                //index -1, because the first index is initialized to ...
-                tourLogInfoViewModel.printNameOfSelected(tourLogComboBox.getSelectionModel().getSelectedIndex() - 1);
-            }
-
+            //index -1, because the first index is initialized to ...
+            tourLogInfoViewModel.setSelectedLogIndex(tourLogComboBox.getSelectionModel().getSelectedIndex() - 1);
+            tourLogInfoViewModel.updateTextBoxes(tourLogComboBox.getSelectionModel().getSelectedIndex() - 1);
         });
 
 
@@ -67,6 +60,10 @@ public class TourLogInfoController implements Initializable {
         totalTimeTextBox.textProperty().bindBidirectional(tourLogInfoViewModel.totalTimeProperty());
         ratingTextBox.textProperty().bindBidirectional(tourLogInfoViewModel.ratingProperty());
 
+    }
+
+    public void updateSelectedLog(){
+        tourLogInfoViewModel.updateSelectedLog();
     }
 
 }

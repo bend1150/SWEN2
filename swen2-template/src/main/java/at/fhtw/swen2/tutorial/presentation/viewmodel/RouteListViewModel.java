@@ -1,37 +1,31 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
-import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
+import at.fhtw.swen2.tutorial.presentation.view.TourCreatorController;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import lombok.Data;
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Float.parseFloat;
 import static javafx.collections.FXCollections.observableArrayList;
 
 @Component
 @Data
 public class RouteListViewModel {
 
+    @Autowired
+    TourCreatorController tourCreatorController;
     @Autowired
     RouteService routeService;
 
@@ -110,5 +104,36 @@ public class RouteListViewModel {
 
         //get the tourLog info into the tourLog table
         tourLogInfoViewModel.showTourLogs(index);
+        tourLogInfoViewModel.setSelectedTour(tourList.get(index));
+    }
+
+    public void routeCreatorPage(){
+        try{
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourCreator.fxml"));
+            fxmlLoader.setController(tourCreatorController);
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage and set the scene
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+
+            // Set the modality to WINDOW_MODAL
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Set the title and show the stage
+            dialogStage.setTitle("Custom Dialog");
+            dialogStage.showAndWait();
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
+
+    public void test(){
+        for (Tour t: tourList
+        ) {
+            System.out.println(t.getId());
+        }
     }
 }
