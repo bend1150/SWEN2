@@ -33,7 +33,7 @@ public class TourLogInfoViewModel {
 
     private List<TourLog> tourLogList = new ArrayList<>();
 
-    private int selectedLogIndex;
+    private int selectedLogIndex = -1;
     private Tour selectedTour;
 
     public void showTourLogs(int tourId){
@@ -64,6 +64,9 @@ public class TourLogInfoViewModel {
             tourLogService.addNew(updatedLog);
         }
         else {
+            System.out.println("Updating to tour nr: " + selectedTour.getId());
+            updatedLog.setId(tourLogList.get(selectedLogIndex).getId());
+            System.out.println("With ID: " + updatedLog.getId());
             tourLogService.updateByTourId(updatedLog);
         }
 
@@ -92,6 +95,23 @@ public class TourLogInfoViewModel {
         setRating(Float.toString(tourLog.getRating()));
     }
 
+    public void deleteSelectedTourLog(){
+        if(selectedLogIndex == -1 || selectedLogIndex > tourLogList.size()-1){
+            return;
+        }
+
+        int index = this.selectedLogIndex;
+
+        TourLog deletedLog = tourLogList.get(index);
+
+        tourLogService.deleteById(deletedLog.getId());
+        System.out.println("Deleted TourLog with ID: " + deletedLog.getId());
+        //-1 again, because index/id confusion
+        showTourLogs(Math.toIntExact(selectedTour.getId()) - 1);
+
+        this.selectedLogIndex = -1;
+        updateTextBoxes(selectedLogIndex);
+    }
 
 
     public String getDate() {

@@ -66,4 +66,8 @@ public class TourLogInfoController implements Initializable {
         tourLogInfoViewModel.updateSelectedLog();
     }
 
+    public void deleteTourLog(){
+        tourLogInfoViewModel.deleteSelectedTourLog();
+    }
+
 }

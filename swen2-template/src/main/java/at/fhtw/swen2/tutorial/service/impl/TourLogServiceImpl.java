@@ -67,4 +67,9 @@ public class TourLogServiceImpl implements TourLogService {
         tourLogRepository.deleteById(id);
         tourLogRepository.save(tourLogMapper.toEntity(updatedLog));
     }
+
+    @Override
+    public void deleteById(long id){
+        tourLogRepository.deleteById(id);
+    }
 }
