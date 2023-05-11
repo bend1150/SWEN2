@@ -72,4 +72,9 @@ public class TourLogServiceImpl implements TourLogService {
     public void deleteById(long id){
         tourLogRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteByTourId(long tourId){
+        tourLogRepository.deleteByTourId(tourId);
+    }
 }

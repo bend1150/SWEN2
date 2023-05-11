@@ -66,12 +66,15 @@ public class RouteListViewModel {
 
     public void deleteSelected(int selectedIndex){
         System.out.println("Deleting index: " + selectedIndex);
+
         if(selectedIndex == -1){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Select a Tour to delete first");
             alert.showAndWait();
             return;
         }
+        //tourLogInfoViewModel.deleteAllTourLogs();
+
         long deletedId = tourList.get(selectedIndex).getId();
 
         routeService.deleteById(deletedId); //delete
@@ -99,11 +102,14 @@ public class RouteListViewModel {
             return;
         }
 
+        int id = Math.toIntExact(tourList.get(index).getId());
+
+
         //get the Tour info into the tour Info/The map
         tourInfoViewModel.updateInfo(tourList.get(index));
 
         //get the tourLog info into the tourLog table
-        tourLogInfoViewModel.showTourLogs(index);
+        tourLogInfoViewModel.showTourLogs(id);
         tourLogInfoViewModel.setSelectedTour(tourList.get(index));
     }
 

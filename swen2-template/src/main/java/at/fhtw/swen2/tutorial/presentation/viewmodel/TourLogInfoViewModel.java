@@ -49,7 +49,7 @@ public class TourLogInfoViewModel {
 
     public void updateSelectedLog(){
         TourLog updatedLog = TourLog.builder()
-                .tourId(selectedTour.getId() - 1)
+                .tourId(selectedTour.getId())
                 .date(getDate())
                 .time(Float.parseFloat(getTime()))
                 .comment(getComment())
@@ -71,7 +71,7 @@ public class TourLogInfoViewModel {
         }
 
         //tourIds and indexes are one off or something for some reason
-        showTourLogs(Math.toIntExact(selectedTour.getId()) - 1);
+        showTourLogs(Math.toIntExact(selectedTour.getId()));
     }
 
     public void updateTextBoxes(int index){
@@ -106,11 +106,16 @@ public class TourLogInfoViewModel {
 
         tourLogService.deleteById(deletedLog.getId());
         System.out.println("Deleted TourLog with ID: " + deletedLog.getId());
-        //-1 again, because index/id confusion
-        showTourLogs(Math.toIntExact(selectedTour.getId()) - 1);
+
+        showTourLogs(Math.toIntExact(selectedTour.getId()));
 
         this.selectedLogIndex = -1;
         updateTextBoxes(selectedLogIndex);
+    }
+
+    public void deleteAllTourLogs(){
+        tourLogService.deleteByTourId(((long) this.selectedTour.getId()));
+        showTourLogs(-1);
     }
 
 
