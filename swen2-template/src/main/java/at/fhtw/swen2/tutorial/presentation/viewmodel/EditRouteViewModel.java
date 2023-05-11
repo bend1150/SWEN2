@@ -80,25 +80,19 @@ public class EditRouteViewModel {
 
     public void updateRoute(Tour selectedTour){
 
-        //delete old
-        routeService.deleteById(selectedTour.getId());
+        selectedTour.setName(getName());
+        selectedTour.setDescription(getDescription());
+        selectedTour.setOrigin(getOrigin());
+        selectedTour.setDestination(getDestination());
+        selectedTour.setTransportType(getTransport());
+        selectedTour.setDistance(Float.parseFloat(getDistance()));
+        selectedTour.setTime(Float.parseFloat(getTime()));
 
         //save new
-        tour = Tour.builder()
-                .name(getName())
-                .description(getDescription())
-                .origin(getOrigin())
-                .destination(getDestination())
-                .transportType(getTransport())
-                .distance(parseFloat(getDistance()))
-                .time(parseFloat(getTime()))
-                //.routeInformation(null)
-                .build();
-
-        routeService.addNew(tour);
+        routeService.update(selectedTour);
 
         routeListViewModel.updateTourList();
-        tourInfoViewModel.updateInfo(tour);
+        tourInfoViewModel.updateInfo(selectedTour);
     }
 
     public void setProperties(int index){

@@ -115,7 +115,8 @@ public class TourLogInfoViewModel {
 
     public void deleteAllTourLogs(){
         tourLogService.deleteByTourId(((long) this.selectedTour.getId()));
-        showTourLogs(-1);
+        tourLogNames.clear();
+        updateTextBoxes(-1);
     }
 
 

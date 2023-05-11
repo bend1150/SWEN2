@@ -15,4 +15,6 @@ public interface RouteService {
     void deleteById(long id);
 
     Tour getById(long id);
+
+    void update(Tour tour);
 }

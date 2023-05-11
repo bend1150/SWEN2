@@ -73,7 +73,8 @@ public class RouteListViewModel {
             alert.showAndWait();
             return;
         }
-        //tourLogInfoViewModel.deleteAllTourLogs();
+
+        tourLogInfoViewModel.deleteAllTourLogs();
 
         long deletedId = tourList.get(selectedIndex).getId();
 

@@ -13,6 +13,6 @@ public interface TourLogRepository extends JpaRepository<TourLogEntity, Long> {
     List<TourLogEntity> findByTourId(@Param("tourId") Long tourId);
 
     @Modifying
-    @Query("DELETE FROM TourLogEntity t WHERE t.tourId = ?1")
-    void deleteByTourId(Long tourId);
+    @Query("DELETE FROM TourLogEntity t WHERE t.tourId = :tourId")
+    void deleteByTourId(@Param("tourId") Long tourId);
 }

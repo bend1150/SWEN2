@@ -51,13 +51,9 @@ public class TourLogServiceImpl implements TourLogService {
             return null;
         }
 
-        List<TourLog> test = tourLogMapper.fromEntity(tourLogRepository.findByTourId(tourId));
+        List<TourLog> tourLogs = tourLogMapper.fromEntity(tourLogRepository.findByTourId(tourId));
 
-        for (TourLog t : test
-             ) {
-            System.out.println(t.getComment());
-        }
-        return test;
+        return tourLogs;
     }
 
     @Override
