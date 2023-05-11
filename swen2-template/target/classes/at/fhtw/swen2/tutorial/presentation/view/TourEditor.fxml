@@ -11,7 +11,7 @@
       <AnchorPane prefHeight="411.0" prefWidth="600.0">
          <children>
             <Label layoutX="55.0" layoutY="204.0" text="Transport" />
-            <TextField fx:id="nameTextBox" editable="false" layoutX="139.0" layoutY="53.0" />
+            <TextField fx:id="nameTextBox" layoutX="139.0" layoutY="53.0" />
             <TextField fx:id="descriptionTextBox" layoutX="139.0" layoutY="88.0" />
             <TextField fx:id="originTextBox" layoutX="139.0" layoutY="124.0" />
             <TextField fx:id="destinationTextBox" layoutX="139.0" layoutY="162.0" />
@@ -25,6 +25,7 @@
             <Label layoutX="55.0" layoutY="166.0" text="Destination" />
             <Label layoutX="55.0" layoutY="240.0" text="Distance" />
             <Label layoutX="55.0" layoutY="278.0" text="Time" />
+            <Button fx:id="cancelButton" layoutX="360.0" layoutY="318.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="25.0" prefWidth="171.0" text="Cancel" textFill="RED" />
          </children>
       </AnchorPane>
    </children>

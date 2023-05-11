@@ -1,6 +1,7 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
+import at.fhtw.swen2.tutorial.presentation.view.TourEditController;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
@@ -25,10 +26,15 @@ import static java.lang.Float.parseFloat;
 public class EditRouteViewModel {
 
     @Autowired
+    TourEditController tourEditController;
+    @Autowired
     private RouteService routeService;
 
     @Autowired
     private RouteListViewModel routeListViewModel;
+
+    @Autowired
+    TourInfoViewModel tourInfoViewModel;
 
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
@@ -74,24 +80,19 @@ public class EditRouteViewModel {
 
     public void updateRoute(Tour selectedTour){
 
-        //delete old
-        routeService.deleteById(selectedTour.getId());
+        selectedTour.setName(getName());
+        selectedTour.setDescription(getDescription());
+        selectedTour.setOrigin(getOrigin());
+        selectedTour.setDestination(getDestination());
+        selectedTour.setTransportType(getTransport());
+        selectedTour.setDistance(Float.parseFloat(getDistance()));
+        selectedTour.setTime(Float.parseFloat(getTime()));
 
         //save new
-        tour = Tour.builder()
-                .name(getName())
-                .description(getDescription())
-                .origin(getOrigin())
-                .destination(getDestination())
-                .transportType(getTransport())
-                .distance(parseFloat(getDistance()))
-                .time(parseFloat(getTime()))
-                //.routeInformation(null)
-                .build();
-
-        routeService.addNew(tour);
+        routeService.update(selectedTour);
 
         routeListViewModel.updateTourList();
+        tourInfoViewModel.updateInfo(selectedTour);
     }
 
     public void setProperties(int index){
@@ -106,5 +107,39 @@ public class EditRouteViewModel {
         setDistance(Float.toString(tour.getDistance()));
         setTime(Float.toString(tour.getTime()));
         
+    }
+
+    public void cancel(){
+        //clean the form
+        setName(null);
+        setDescription(null);
+        setOrigin(null);
+        setDestination(null);
+        setTransport(null);
+        setDistance(null);
+        setTime(null);
+    }
+
+    public void openDialog(){
+        try{
+            // Load the FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourEditor.fxml"));
+            fxmlLoader.setController(tourEditController);
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage and set the scene
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+
+            // Set the modality to WINDOW_MODAL
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Set the title and show the stage
+            dialogStage.setTitle("Custom Dialog");
+            dialogStage.showAndWait();
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 }

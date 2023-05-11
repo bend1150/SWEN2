@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="layout" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.swen2.tutorial.presentation.ApplicationController">
+<BorderPane fx:id="layout" prefHeight="616.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhtw.swen2.tutorial.presentation.ApplicationController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar prefWidth="760.0" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="%menu.file.title">
                <items>
@@ -34,11 +34,11 @@
       </MenuBar>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" fx:id="tabPane">
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="%tab.demo.title">
                <content>
-                  <SplitPane disable="true" dividerPositions="0.265">
+                  <SplitPane disable="true" dividerPositions="0.22440677966101696">
                     <items>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                             <fx:include source="view/RouteList.fxml" />
@@ -48,7 +48,7 @@
                               <fx:include source="view/Search.fxml" />
                           </children>
                           <children>
-                              <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
+                              <VBox layoutY="53.0" prefHeight="481.0" prefWidth="760.0">
                                 <fx:include source="view/Overview.fxml" />
                               </VBox>
                           </children>
@@ -67,7 +67,7 @@
       </TabPane>
    </center>
    <bottom>
-      <ToolBar maxHeight="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" BorderPane.alignment="CENTER">
+      <ToolBar maxHeight="20.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <items>
             <Label fx:id="tbMonitorStatus" />
             <Label text="%tab.monitor.status" />

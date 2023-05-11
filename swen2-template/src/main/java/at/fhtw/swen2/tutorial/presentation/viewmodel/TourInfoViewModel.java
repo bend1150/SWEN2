@@ -1,34 +1,18 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
-
-import at.fhtw.swen2.tutorial.service.PersonService;
-import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
-import at.fhtw.swen2.tutorial.service.model.TourLog;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static java.lang.Float.parseFloat;
-
-
 @Component
-public class NewRouteViewModel {
-
-    @Autowired
-    private RouteService routeService;
-
-    @Autowired
-    private RouteListViewModel routeListViewModel;
+@Data
+public class TourInfoViewModel {
 
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
@@ -70,34 +54,24 @@ public class NewRouteViewModel {
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
 
-    public void saveRoute(){
-        tour = Tour.builder()
-                .name(getName())
-                .description(getDescription())
-                .origin(getOrigin())
-                .destination(getDestination())
-                .transportType(getTransport())
-                .distance(parseFloat(getDistance()))
-                .time(parseFloat(getTime()))
-                //.routeInformation(null)
-                .build();
 
-        routeService.addNew(tour);
-
-        routeListViewModel.updateTourList();
-
-        routeListViewModel.test();
+    public void updateInfo(Tour tour){
+        setName(tour.getName());
+        setDescription(tour.getDescription());
+        setOrigin(tour.getOrigin());
+        setDestination(tour.getDestination());
+        setTransport(tour.getTransportType());
+        setDistance(Float.toString(tour.getDistance()));
+        setTime(Float.toString(tour.getTime()));
     }
 
-    public void cancel(){
-        //clean the form
-        setName(null);
-        setDescription(null);
-        setOrigin(null);
-        setDestination(null);
-        setTransport(null);
-        setDistance(null);
-        setTime(null);
+    public void clearInfo(){
+        setName("");
+        setDescription("");
+        setOrigin("");
+        setDestination("");
+        setTransport("");
+        setDistance("");
+        setTime("");
     }
-
 }
