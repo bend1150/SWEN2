@@ -32,6 +32,14 @@ public class RouteListViewModel {
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
 
+    private List<Tour> tours;   //ben
+
+
+    public List<Tour> getTours(){   //ben
+        return tours;
+    }
+
+
     public Object getTourListProperty() {
         return tourListProperty.get();
     }
@@ -51,16 +59,32 @@ public class RouteListViewModel {
     }
 
 
-    public void updateTourList(List<Tour> tours){
+   /* public void updateTourList(List<Tour> tours){       // b4 changes
         tourList.clear();
         List<String> tourNames = new ArrayList<>();
         for (Tour tour: tours
              ) {
             tourNames.add(tour.getName());
         }
-
         tourList.setAll(tourNames);
-
         //update table
+    }*/
+   public void updateTourList(List<Tour> tours){
+       this.tours = tours;
+       tourList.clear();
+       List<String> tourNames = new ArrayList<>();
+       for (Tour tour: tours) {
+           tourNames.add(tour.getName());
+       }
+       tourList.setAll(tourNames);
+       //update table
+   }
+
+
+
+
+    public void printTourDetails(Tour tour){ //test
+        System.out.println("Origin: " + tour.getOrigin());
+        System.out.println(("Dest: " + tour.getDestination()));
     }
 }
