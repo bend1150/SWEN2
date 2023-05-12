@@ -53,6 +53,7 @@
                               </VBox>
                           </children>
                       </AnchorPane>
+
                     </items>
                   </SplitPane>
                </content>
@@ -67,6 +68,11 @@
             <Tab text="TourLog">
                 <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
                     <fx:include source="view/TourLog.fxml" />
+                </VBox>
+            </Tab>
+            <Tab text = "MapView">
+                <VBox layoutY="53.0" prefHeight="268.0" prefWidth="586.0">
+                    <fx:include source="view/MapViewTest.fxml" />
                 </VBox>
             </Tab>
         </tabs>

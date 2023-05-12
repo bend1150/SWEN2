@@ -1,38 +1,40 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
-import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import org.hibernate.internal.build.AllowSysOut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Component;
+import javafx.scene.image.Image;
 
-import java.io.IOException;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Float.parseFloat;
 import static javafx.collections.FXCollections.observableArrayList;
 
 @Component
 public class RouteListViewModel {
 
+
     public ObservableList<String> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
+    private ObjectProperty<Image> tourImageProperty = new SimpleObjectProperty<>();
+    public void setTourImageProperty(Image image) {
+        tourImageProperty.set(image);
+    }
 
+    public ObjectProperty<Image> tourImageProperty() {
+        return tourImageProperty;
+    }
 
     private List<Tour> tours;   //ben
+
+
 
 
     public List<Tour> getTours(){   //ben
@@ -79,9 +81,6 @@ public class RouteListViewModel {
        tourList.setAll(tourNames);
        //update table
    }
-
-
-
 
     public void printTourDetails(Tour tour){ //test
         System.out.println("Origin: " + tour.getOrigin());

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public interface MapQuestService {
 
-    Image getImage(/*String origin, String destination*/) throws IOException;   //kommentier aus falls eventhandler funkt
+    Image getImage(String origin, String destination) throws IOException;   //kommentier aus falls eventhandler funkt
 
 
 }

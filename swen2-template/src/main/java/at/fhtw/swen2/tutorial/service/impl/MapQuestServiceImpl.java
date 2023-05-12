@@ -11,6 +11,9 @@ import javafx.scene.image.Image;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.FileOutputStream;
 /*
@@ -24,12 +27,13 @@ import okhttp3.Response;
 @Transactional
 public class MapQuestServiceImpl implements MapQuestService {
 
+    private static final Logger logger = LoggerFactory.getLogger(MapQuestServiceImpl.class);
 
 
-
-    public Image getImage(/*String origin, String destination*/) throws IOException{
-        String origin = "Wien";
-        String destination ="Paris";
+@Override
+    public Image getImage(String origin, String destination) throws IOException{
+        //String origin = "Wien";
+        //String destination ="Paris";
         byte[] imageBytes = getImageBytes(origin, destination);
         Image image = null;
         try {
@@ -44,11 +48,15 @@ public class MapQuestServiceImpl implements MapQuestService {
 
 private byte[] getImageBytes (String origin, String destination) throws IOException {
     String apiURL ="https://www.mapquestapi.com/staticmap/v5/map?start=%s&end=%s&size=%d,%d@2x&format=png&key=%s";
+    //String apiURL ="https://www.mapquestapi.com/staticmap/v5/map?start=%s&end=%s&size=%d,%d@2x&&key=%s";
     String key ="I0bgoaXyiDu6NYAjhuhA1cSv4jU7nQEv";
-
     RestTemplate restTemplate = new RestTemplate();
-    String url = String.format(apiURL, origin, destination, 500, 400, key );
+    String url = String.format(apiURL, origin, destination, 170, 170, key);
+    logger.info("Sending request to {}", url);
+
     byte[] imageBytes = restTemplate.getForObject(url, byte[].class);
+    logger.info("Received {} bytes", imageBytes.length);
+
     return imageBytes;
 
 }
