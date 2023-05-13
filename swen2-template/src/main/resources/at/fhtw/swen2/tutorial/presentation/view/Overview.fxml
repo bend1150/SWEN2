@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            > <!-- fx:controller="at.fhtw.swen2.tutorial.presentation.view.OverviewController"-->
+            fx:controller="at.fhtw.swen2.tutorial.presentation.view.RouteListController"  >
    <children>
       <TabPane layoutX="-1.0" layoutY="-1.0" prefHeight="269.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>

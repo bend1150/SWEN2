@@ -57,7 +57,6 @@ public class RouteListController implements Initializable {
         //imageView.imageProperty().bindBidirectional(routeListViewModel.tourImageProperty());
 
 
-        imageView = new ImageView();
 
         tourList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
