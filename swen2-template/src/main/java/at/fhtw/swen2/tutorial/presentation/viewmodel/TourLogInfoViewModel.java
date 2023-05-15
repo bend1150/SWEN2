@@ -76,12 +76,7 @@ public class TourLogInfoViewModel {
 
     public void updateTextBoxes(int index){
         if(index == -1){
-            setDate("");
-            setTime("");
-            setComment("");
-            setDifficulty("");
-            setTotalTime("");
-            setRating("");
+            clearTextBoxes();
             return;
         }
 
@@ -93,6 +88,15 @@ public class TourLogInfoViewModel {
         setDifficulty(tourLog.getDifficulty());
         setTotalTime(Float.toString(tourLog.getTotalTime()));
         setRating(Float.toString(tourLog.getRating()));
+    }
+
+    public void clearTextBoxes(){
+        setDate("");
+        setTime("");
+        setComment("");
+        setDifficulty("");
+        setTotalTime("");
+        setRating("");
     }
 
     public void deleteSelectedTourLog(){
@@ -116,7 +120,7 @@ public class TourLogInfoViewModel {
     public void deleteAllTourLogs(){
         tourLogService.deleteByTourId(((long) this.selectedTour.getId()));
         tourLogNames.clear();
-        updateTextBoxes(-1);
+        clearTextBoxes();
     }
 
 

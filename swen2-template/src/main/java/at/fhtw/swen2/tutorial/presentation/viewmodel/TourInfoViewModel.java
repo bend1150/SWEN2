@@ -1,11 +1,14 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import at.fhtw.swen2.tutorial.service.model.TourLog;
+import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +16,9 @@ import java.util.List;
 @Component
 @Data
 public class TourInfoViewModel {
+
+    @Autowired
+    TourLogInfoViewModel tourLogInfoViewModel;
 
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty description = new SimpleStringProperty();
@@ -73,5 +79,20 @@ public class TourInfoViewModel {
         setTransport("");
         setDistance("");
         setTime("");
+
+        tourLogInfoViewModel.setSelectedTour(null);
+    }
+
+    public void generateReport(){
+        Tour tour = tourLogInfoViewModel.getSelectedTour();
+        List<TourLog> tourLogs = tourLogInfoViewModel.getTourLogList();
+        //image = ...
+
+        if(tour == null){
+            System.out.println("tour is null");
+            return;
+        }
+        PdfReport pdfReport = new PdfReport();
+        pdfReport.createReport(tour, tourLogs); //pass Image too later
     }
 }

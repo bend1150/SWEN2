@@ -48,5 +48,9 @@ public class TourInfoController  implements Initializable {
 
         }
 
+        public void generateReport(){
+                tourInfoViewModel.generateReport();
+        }
+
 
 }

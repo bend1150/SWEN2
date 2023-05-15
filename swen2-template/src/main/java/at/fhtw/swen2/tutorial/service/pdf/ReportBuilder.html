@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        h1 {text-decoration: underline}
+        .underline {text-decoration: underline}
+        .column1 {
+          float: left;
+          width: 70%;
+        }
+        .column2 {
+          float: left;
+          width: 30%;
+        }
+        #image {max-width: 100%}
+        td {height: 2px}
+        .border{
+            width: 50%;
+            border: solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{title}}:</h1>
+    <div class="row">
+        <div class="column1">
+            <img id="image" src="https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png?w=681&h=383&crop=1">
+            <p>{{description}}</p>
+        </div>
+        <div class="column2">
+            <table>
+                <tr>
+                    <td>
+                        <p class="underline">Origin:</p>
+                    </td>
+                    <td>
+                        <p>{{origin}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="underline">Destination:</p>
+                    </td>
+                    <td>
+                        <p>{{destination}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="underline">Transport:</p>
+                    </td>
+                    <td>
+                        <p>{{transport}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="underline">Distance:</p>
+                    </td>
+                    <td>
+                        <p>{{distance}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="underline">Time:</p>
+                    </td>
+                    <td>
+                        <p>{{time}}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+</body>
+</html>
