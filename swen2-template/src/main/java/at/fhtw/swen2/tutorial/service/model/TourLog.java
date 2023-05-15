@@ -9,12 +9,12 @@ public class TourLog {
 
     private long id;
 
-    //private long tourId;
+    private long tourId;
     private String date;
-    private float time;
+    private Float time;
     private String comment;
     private String difficulty;
-    private float totalTime;
-    private float rating;
+    private Float totalTime;
+    private Float rating;
 
 }

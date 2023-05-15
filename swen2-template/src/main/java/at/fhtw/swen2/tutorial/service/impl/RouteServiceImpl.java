@@ -53,4 +53,9 @@ public class RouteServiceImpl implements RouteService {
     public Tour getById(long id){
         return tourMapper.fromEntity(routeRepository.getById(id));
     }
+
+    @Override
+    public void update(Tour tour){
+        routeRepository.save(tourMapper.toEntity(tour));
+    }
 }

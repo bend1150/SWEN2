@@ -39,44 +39,20 @@ public class RouteListController implements Initializable {
     RouteListViewModel routeListViewModel;
 
     @Autowired
-    TourController tourController;
-
-    @Autowired
-    TourEditController tourEditController;
-
-    @Autowired
     EditRouteViewModel editRouteViewModel;
 
     public void addRoute(){
-        //pack the bound data from the viewmodel into a dto and ship to service
-        try{
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TourCreator.fxml"));
-            fxmlLoader.setController(tourController);
-            Parent root = fxmlLoader.load();
-
-            // Create a new stage and set the scene
-            Stage dialogStage = new Stage();
-            dialogStage.setScene(new Scene(root));
-
-            // Set the modality to WINDOW_MODAL
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-
-            // Set the title and show the stage
-            dialogStage.setTitle("Custom Dialog");
-            dialogStage.showAndWait();
-        }
-        catch(Exception ex){
-            System.out.println(ex);
-        }
+        routeListViewModel.routeCreatorPage();
     }
 
     public void deleteRoute(){
-        routeListViewModel.deleteSelected(tourList.getSelectionModel().getSelectedIndex());
+        int selectedRouteIndex = routeListViewModel.getListIndex();
+        routeListViewModel.deleteSelected(selectedRouteIndex);
     }
 
     public void editRoute(){
-        if(tourList.getSelectionModel().getSelectedIndex() == -1){
+        int selectedRouteIndex = routeListViewModel.getListIndex();
+        if(selectedRouteIndex == -1){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Select a Tour to edit first");
             alert.showAndWait();
@@ -85,26 +61,7 @@ public class RouteListController implements Initializable {
 
         editRouteViewModel.setProperties(tourList.getSelectionModel().getSelectedIndex());
 
-        try{
-            // Load the FXML file
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TourEditor.fxml"));
-            fxmlLoader.setController(tourEditController);
-            Parent root = fxmlLoader.load();
-
-            // Create a new stage and set the scene
-            Stage dialogStage = new Stage();
-            dialogStage.setScene(new Scene(root));
-
-            // Set the modality to WINDOW_MODAL
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-
-            // Set the title and show the stage
-            dialogStage.setTitle("Custom Dialog");
-            dialogStage.showAndWait();
-        }
-        catch(Exception ex){
-            System.out.println(ex);
-        }
+        editRouteViewModel.openDialog();
     }
 
 

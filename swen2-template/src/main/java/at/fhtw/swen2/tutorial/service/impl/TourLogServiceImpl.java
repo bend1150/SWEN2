@@ -44,4 +44,33 @@ public class TourLogServiceImpl implements TourLogService {
         TourLogEntity entity = tourLogRepository.save(tourLogMapper.toEntity(tourLog));
         return tourLogMapper.fromEntity(entity);
     }
+
+    @Override
+    public List<TourLog> getTourLogListByTourId(Long tourId){
+        if(tourId == -1){
+            return null;
+        }
+
+        List<TourLog> tourLogs = tourLogMapper.fromEntity(tourLogRepository.findByTourId(tourId));
+
+        return tourLogs;
+    }
+
+    @Override
+    public void updateByTourId(TourLog updatedLog){
+        Long id = updatedLog.getId();
+
+        tourLogRepository.deleteById(id);
+        tourLogRepository.save(tourLogMapper.toEntity(updatedLog));
+    }
+
+    @Override
+    public void deleteById(long id){
+        tourLogRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByTourId(long tourId){
+        tourLogRepository.deleteByTourId(tourId);
+    }
 }

@@ -3,6 +3,7 @@ package at.fhtw.swen2.tutorial.presentation.viewmodel;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import at.fhtw.swen2.tutorial.service.model.TourLog;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -84,5 +85,19 @@ public class NewRouteViewModel {
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
+
+        routeListViewModel.test();
     }
+
+    public void cancel(){
+        //clean the form
+        setName(null);
+        setDescription(null);
+        setOrigin(null);
+        setDestination(null);
+        setTransport(null);
+        setDistance(null);
+        setTime(null);
+    }
+
 }
