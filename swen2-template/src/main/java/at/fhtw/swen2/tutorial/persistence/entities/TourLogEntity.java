@@ -21,11 +21,11 @@ public class TourLogEntity {
     private Long tourId;
 
     private String date;
-    private float time;
+    private Float time;
     private String comment;
     private String difficulty;
-    private float totalTime;
-    private float rating;
+    private Float totalTime;
+    private Float rating;
 
     @ManyToOne
     @JoinColumn(name = "tour_report_id")
