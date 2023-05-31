@@ -9,6 +9,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,17 +18,22 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 public class PdfReport {
-   public void createReport(Tour tour, List<TourLog> tourLogList) {
+    private static final Logger logger = LogManager.getLogger(PdfReport.class);
+
+    public void createReport(Tour tour, List<TourLog> tourLogList) {
        File htmlFile = new File("./src/main/java/at/fhtw/swen2/tutorial/service/pdf/ReportBuilder.html");
        String htmlContent = "";
        try{
+           logger.info("preparing report...");
+
            FileInputStream inputStream = new FileInputStream(htmlFile);
            byte[] buffer = new byte[(int) htmlFile.length()];
            inputStream.read(buffer);
            htmlContent = new String(buffer);
            inputStream.close();
        }catch (Exception ex){
-           System.out.println(ex);
+           logger.error("Report generation failed.");
+           logger.error(ex);
        }
 
        //replace Placeholders:
@@ -115,12 +122,15 @@ public class PdfReport {
        }
 
        try{
+            logger.info("generating report...");
+
            String dest = "./Reports/" + tour.getName() + ".pdf";
            PdfWriter pdfWriter = new PdfWriter(new FileOutputStream(dest));
            ConverterProperties props = new ConverterProperties();
            HtmlConverter.convertToPdf(htmlContent, pdfWriter, props);
        }catch(Exception ex){
-           System.out.println(ex);
+           logger.error("Error generating report");
+           logger.error(ex);
        }
 
    }

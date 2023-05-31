@@ -1,5 +1,6 @@
 package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
+import at.fhtw.swen2.tutorial.presentation.view.RouteListController;
 import at.fhtw.swen2.tutorial.service.TourLogService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import at.fhtw.swen2.tutorial.service.model.TourLog;
@@ -9,6 +10,8 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,8 @@ import java.util.List;
 @Component
 @Data
 public class TourLogInfoViewModel {
+    private static final Logger logger = LoggerFactory.getLogger(RouteListController.class);
+
     @Autowired
     TourLogService tourLogService;
 
@@ -48,27 +53,34 @@ public class TourLogInfoViewModel {
     }
 
     public void updateSelectedLog(){
-        TourLog updatedLog = TourLog.builder()
-                .tourId(selectedTour.getId())
-                .date(getDate())
-                .time(Float.parseFloat(getTime()))
-                .comment(getComment())
-                .difficulty(getDifficulty())
-                .totalTime(Float.parseFloat(getTotalTime()))
-                .rating(Float.parseFloat(getRating()))
-                .build();
+        try{
+            TourLog updatedLog = TourLog.builder()
+                    .tourId(selectedTour.getId())
+                    .date(getDate())
+                    .time(Float.parseFloat(getTime()))
+                    .comment(getComment())
+                    .difficulty(getDifficulty())
+                    .totalTime(Float.parseFloat(getTotalTime()))
+                    .rating(Float.parseFloat(getRating()))
+                    .build();
 
 
-        if(this.selectedLogIndex == -1){
-            System.out.println("saving to tour nr: " + selectedTour.getId());
-            tourLogService.addNew(updatedLog);
+            if(this.selectedLogIndex == -1){
+                logger.info("saving to tour nr: " + selectedTour.getId());
+                tourLogService.addNew(updatedLog);
+            }
+            else {
+                logger.info("Updating to tour nr: " + selectedTour.getId());
+                updatedLog.setId(tourLogList.get(selectedLogIndex).getId());
+                logger.info("With ID: " + updatedLog.getId());
+                tourLogService.updateByTourId(updatedLog);
+            }
         }
-        else {
-            System.out.println("Updating to tour nr: " + selectedTour.getId());
-            updatedLog.setId(tourLogList.get(selectedLogIndex).getId());
-            System.out.println("With ID: " + updatedLog.getId());
-            tourLogService.updateByTourId(updatedLog);
+        catch(Exception ex){
+            logger.error("Error updating tourlog");
+            logger.error("ERROR: ", ex);
         }
+
 
         //tourIds and indexes are one off or something for some reason
         showTourLogs(Math.toIntExact(selectedTour.getId()));
@@ -108,13 +120,20 @@ public class TourLogInfoViewModel {
 
         TourLog deletedLog = tourLogList.get(index);
 
-        tourLogService.deleteById(deletedLog.getId());
-        System.out.println("Deleted TourLog with ID: " + deletedLog.getId());
+        try{
+            logger.info("Deleting TourLog with ID: " + deletedLog.getId());
+            tourLogService.deleteById(deletedLog.getId());
 
-        showTourLogs(Math.toIntExact(selectedTour.getId()));
+            showTourLogs(Math.toIntExact(selectedTour.getId()));
 
-        this.selectedLogIndex = -1;
-        updateTextBoxes(selectedLogIndex);
+            this.selectedLogIndex = -1;
+            updateTextBoxes(selectedLogIndex);
+        }
+        catch(Exception ex){
+            logger.error("Error deleting tour");
+            logger.error("Error CODE:",ex);
+        }
+
     }
 
     public void deleteAllTourLogs(){

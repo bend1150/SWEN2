@@ -5,6 +5,7 @@ import at.fhtw.swen2.tutorial.presentation.view.TourEditController;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +27,7 @@ import static java.lang.Float.parseFloat;
 
 @Component
 public class EditRouteViewModel {
+    private static final Logger logger = LogManager.getLogger(PdfReport.class);
 
     @Autowired
     TourEditController tourEditController;
@@ -79,20 +83,29 @@ public class EditRouteViewModel {
 
 
     public void updateRoute(Tour selectedTour){
+        try{
+            logger.info("updating route");
 
-        selectedTour.setName(getName());
-        selectedTour.setDescription(getDescription());
-        selectedTour.setOrigin(getOrigin());
-        selectedTour.setDestination(getDestination());
-        selectedTour.setTransportType(getTransport());
-        selectedTour.setDistance(Float.parseFloat(getDistance()));
-        selectedTour.setTime(Float.parseFloat(getTime()));
+            selectedTour.setName(getName());
+            selectedTour.setDescription(getDescription());
+            selectedTour.setOrigin(getOrigin());
+            selectedTour.setDestination(getDestination());
+            selectedTour.setTransportType(getTransport());
+            selectedTour.setDistance(Float.parseFloat(getDistance()));
+            selectedTour.setTime(Float.parseFloat(getTime()));
 
-        //save new
-        routeService.update(selectedTour);
+            //save new
+            routeService.update(selectedTour);
 
-        routeListViewModel.updateTourList();
-        tourInfoViewModel.updateInfo(selectedTour);
+            routeListViewModel.updateTourList();
+            tourInfoViewModel.updateInfo(selectedTour);
+        }
+        catch(Exception ex){
+            logger.error("Error updating route");
+            logger.error(ex);
+        }
+
+
     }
 
     public void setProperties(int index){
@@ -122,6 +135,8 @@ public class EditRouteViewModel {
 
     public void openDialog(){
         try{
+            logger.info("opening tour edit window");
+
             // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourEditor.fxml"));
             fxmlLoader.setController(tourEditController);
@@ -139,7 +154,8 @@ public class EditRouteViewModel {
             dialogStage.showAndWait();
         }
         catch(Exception ex){
-            System.out.println(ex);
+            logger.error("Error opening tour edit window");
+            logger.error(ex);
         }
     }
 }

@@ -85,8 +85,6 @@ public class NewRouteViewModel {
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
-
-        routeListViewModel.test();
     }
 
     public void cancel(){
