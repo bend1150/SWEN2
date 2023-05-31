@@ -3,6 +3,7 @@ package at.fhtw.swen2.tutorial.presentation.viewmodel;
 import at.fhtw.swen2.tutorial.presentation.view.TourCreatorController;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,8 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +26,8 @@ import static javafx.collections.FXCollections.observableArrayList;
 @Component
 @Data
 public class RouteListViewModel {
+
+    private static final Logger logger = LogManager.getLogger(PdfReport.class);
 
     @Autowired
     TourCreatorController tourCreatorController;
@@ -65,25 +70,33 @@ public class RouteListViewModel {
 
 
     public void deleteSelected(int selectedIndex){
-        System.out.println("Deleting index: " + selectedIndex);
 
-        if(selectedIndex == -1){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Select a Tour to delete first");
-            alert.showAndWait();
-            return;
+        try{
+            logger.info("Deleting index: " + selectedIndex);
+
+            if(selectedIndex == -1){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Select a Tour to delete first");
+                alert.showAndWait();
+                return;
+            }
+
+            tourLogInfoViewModel.deleteAllTourLogs();
+
+            long deletedId = tourList.get(selectedIndex).getId();
+
+            routeService.deleteById(deletedId); //delete
+
+            updateTourList();
+
+            updateSelectedIndex(-1);
+            tourInfoViewModel.clearInfo();
+        }
+        catch (Exception ex){
+            logger.error("Error deleting selected route");
+            logger.error(ex);
         }
 
-        tourLogInfoViewModel.deleteAllTourLogs();
-
-        long deletedId = tourList.get(selectedIndex).getId();
-
-        routeService.deleteById(deletedId); //delete
-
-        updateTourList();
-
-        updateSelectedIndex(-1);
-        tourInfoViewModel.clearInfo();
     }
 
     public void updateTourList(){
@@ -116,6 +129,8 @@ public class RouteListViewModel {
 
     public void routeCreatorPage(){
         try{
+            logger.info("opening tour creator page");
+
             // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourCreator.fxml"));
             fxmlLoader.setController(tourCreatorController);
@@ -133,14 +148,8 @@ public class RouteListViewModel {
             dialogStage.showAndWait();
         }
         catch(Exception ex){
-            System.out.println(ex);
-        }
-    }
-
-    public void test(){
-        for (Tour t: tourList
-        ) {
-            System.out.println(t.getId());
+            logger.error("Error while opening tour creator page");
+            logger.error(ex);
         }
     }
 }
