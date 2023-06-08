@@ -127,6 +127,8 @@ public class NewTourLogViewModel {
     private TourLog tourLog;
 
     public void saveTourLog(){
+
+
         tourLog = TourLog.builder()
                 .date(getDate())
                 .time(parseFloat(getTime()))

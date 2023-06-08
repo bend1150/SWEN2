@@ -15,8 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import static java.lang.Float.parseFloat;
 
 @Component
 @Data
@@ -43,7 +50,7 @@ public class TourLogInfoViewModel {
 
     public void showTourLogs(int tourId){
         tourLogNames.clear();
-        tourLogNames.add("...");
+        tourLogNames.add("Add new TourLog");
 
         tourLogList = tourLogService.getTourLogListByTourId(((long) tourId));
         for (TourLog t: tourLogList
@@ -53,6 +60,22 @@ public class TourLogInfoViewModel {
     }
 
     public void updateSelectedLog(){
+        if(getTime() == "" || getTotalTime()==""|| getRating()=="" || getTime() == null || getTotalTime() == null || getRating() == null){
+            logger.error("Some fields have not been properly filled out");
+            return;  //damit nicht erstellt wird
+        }
+
+        try{
+            float floatTime = parseFloat(getTime());
+            float floatTotalTime = parseFloat(getTotalTime());
+            float floatRating = parseFloat(getRating());
+        }
+        catch(Exception ex){
+            logger.error("total time, time and rating must be numbers");
+            return; // wieder falscher input
+        }
+
+
         try{
             TourLog updatedLog = TourLog.builder()
                     .tourId(selectedTour.getId())
@@ -63,6 +86,15 @@ public class TourLogInfoViewModel {
                     .totalTime(Float.parseFloat(getTotalTime()))
                     .rating(Float.parseFloat(getRating()))
                     .build();
+
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<TourLog>> violations = validator.validate(updatedLog);       //schaut notations nach im model -> @NotNull oder @NotBlank
+
+            if(!violations.isEmpty()){
+                logger.error("Some fields have not been properly filled out");
+                return;  //damit nicht erstellt wird
+            }
 
 
             if(this.selectedLogIndex == -1){

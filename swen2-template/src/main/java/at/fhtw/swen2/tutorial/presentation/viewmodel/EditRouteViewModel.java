@@ -20,7 +20,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Float.parseFloat;
 
@@ -83,6 +88,30 @@ public class EditRouteViewModel {
 
 
     public void updateRoute(Tour selectedTour){
+        if(getTime() == null || getDistance() == null){
+            logger.error("Some fields have not been properly filled out");
+            return;  //damit nicht erstellt wird
+        }
+
+        try{
+            float floatDistance = parseFloat(getDistance());
+            float floatTime = parseFloat(getTime());
+        }
+        catch(Exception ex){
+            logger.error("Time and distance have to be written in numbers");
+            return; // wieder falscher input
+        }
+
+        Tour backupTour = null;
+        try{
+            backupTour = selectedTour;
+        }
+        catch (Exception ex){
+            logger.error("Error while updating Tour");
+            return;
+        }
+
+
         try{
             logger.info("updating route");
 
@@ -93,6 +122,16 @@ public class EditRouteViewModel {
             selectedTour.setTransportType(getTransport());
             selectedTour.setDistance(Float.parseFloat(getDistance()));
             selectedTour.setTime(Float.parseFloat(getTime()));
+
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<Tour>> violations = validator.validate(selectedTour);       //schaut notations nach im model -> @NotNull oder @NotBlank
+
+            if(!violations.isEmpty()){
+                logger.error("Some fields have not been properly filled out");
+                routeListViewModel.updateTourList();        //keine ahnung warum, aber man muss die liste vom db aktualisieren sonst nicht update
+                return;  //damit nicht erstellt wird
+            }
 
             //save new
             routeService.update(selectedTour);
