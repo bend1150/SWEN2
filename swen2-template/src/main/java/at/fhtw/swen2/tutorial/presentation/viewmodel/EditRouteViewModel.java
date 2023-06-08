@@ -87,10 +87,10 @@ public class EditRouteViewModel {
     public void setTime(String time) { this.time.set(time); }
 
 
-    public void updateRoute(Tour selectedTour){
+    public Tour updateRoute(Tour selectedTour){
         if(getTime() == null || getDistance() == null){
             logger.error("Some fields have not been properly filled out");
-            return;  //damit nicht erstellt wird
+            return null;  //damit nicht erstellt wird
         }
 
         try{
@@ -99,16 +99,25 @@ public class EditRouteViewModel {
         }
         catch(Exception ex){
             logger.error("Time and distance have to be written in numbers");
-            return; // wieder falscher input
+            return null; // wieder falscher input
         }
 
         Tour backupTour = null;
         try{
-            backupTour = selectedTour;
+            backupTour = Tour.builder()
+                    .id(selectedTour.getId())
+                    .name(selectedTour.getName())
+                    .description(selectedTour.getDescription())
+                    .origin(selectedTour.getOrigin())
+                    .destination(selectedTour.getDestination())
+                    .transportType(selectedTour.getTransportType())
+                    .distance(selectedTour.getDistance())
+                    .time(selectedTour.getTime())
+                    .build();
         }
         catch (Exception ex){
             logger.error("Error while updating Tour");
-            return;
+            return null;
         }
 
 
@@ -130,7 +139,7 @@ public class EditRouteViewModel {
             if(!violations.isEmpty()){
                 logger.error("Some fields have not been properly filled out");
                 routeListViewModel.updateTourList();        //keine ahnung warum, aber man muss die liste vom db aktualisieren sonst nicht update
-                return;  //damit nicht erstellt wird
+                return backupTour;  //damit nicht erstellt wird
             }
 
             //save new
@@ -138,13 +147,15 @@ public class EditRouteViewModel {
 
             routeListViewModel.updateTourList();
             tourInfoViewModel.updateInfo(selectedTour);
+
+            return selectedTour;
         }
         catch(Exception ex){
             logger.error("Error updating route");
             logger.error(ex);
         }
 
-
+        return backupTour;
     }
 
     public void setProperties(int index){
