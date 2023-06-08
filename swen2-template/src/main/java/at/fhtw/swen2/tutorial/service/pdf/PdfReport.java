@@ -53,10 +53,14 @@ public class PdfReport {
        htmlContent = htmlContent.replace("{{time}}", time.toString());
        htmlContent = htmlContent.replace("{{description}}", description);
 
+       int logNumber = 0;
        for (TourLog log : tourLogList
-            ) {
+            ) {             // jeder Log wird (manuell) in das pdf geschrieben
+            logNumber++;
             String logInfo =
                 """
+                    TourLog: {{logNumber}}
+                    
                     <table class='border'>
                         <tr>
                             <td class='border'>
@@ -111,6 +115,7 @@ public class PdfReport {
                     <br>
                 """;
 
+            logInfo = logInfo.replace("{{logNumber}}", String.valueOf(logNumber));
             logInfo = logInfo.replace("{{date}}", log.getDate());
             logInfo = logInfo.replace("{{time}}", log.getTime().toString());
             logInfo = logInfo.replace("{{comment}}", log.getComment());

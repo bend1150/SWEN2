@@ -2,11 +2,13 @@ package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.presentation.view.TourCreatorController;
 import at.fhtw.swen2.tutorial.service.RouteService;
+import at.fhtw.swen2.tutorial.service.model.Person;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -151,5 +154,20 @@ public class RouteListViewModel {
             logger.error("Error while opening tour creator page");
             logger.error(ex);
         }
+    }
+
+    public void filterList(String searchText){
+        if(searchText.isEmpty()){
+            updateTourList();
+            return;
+        }
+
+        List<Tour> filteredList = routeService.filter(searchText);
+
+        tourList.clear();
+        tourList.setAll(filteredList);
+
+
+        updateSelectedIndex(-1);
     }
 }
