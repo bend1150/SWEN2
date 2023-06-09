@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.FileOutputStream;
+import java.util.concurrent.atomic.AtomicBoolean;
 /*
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -54,7 +55,35 @@ public class MapQuestServiceImpl implements MapQuestService {
         String url = String.format(apiURL, origin, destination, 500, 170, key);
         logger.info("Sending request to {}", url);
 
+        System.out.print("Please wait till the image is loaded...");
+
+        AtomicBoolean loading = new AtomicBoolean(true);
+
+        Thread loadingThread = new Thread(() -> {           //Loading screen während Request
+            int counter = 0;
+            while (loading.get()){
+                if(counter % 4 == 0){
+                    System.out.print("\b\b\b");
+                }
+                else{
+                    System.out.print(".");
+                }
+                try{
+                    Thread.sleep(500);
+                }
+                catch (Exception ex){
+                    System.out.println(ex);
+                }
+                counter++;
+            }
+        });
+        loadingThread.start();
+
+
         byte[] imageBytes = restTemplate.getForObject(url, byte[].class);
+
+        loading.set(false);
+        System.out.println("\n");
         logger.info("Received {} bytes", imageBytes.length);
 
         // Test: Save img to file

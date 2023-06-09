@@ -4,6 +4,7 @@ import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import at.fhtw.swen2.tutorial.service.model.TourLog;
+import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -13,16 +14,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Float.parseFloat;
 
 
 @Component
 public class NewRouteViewModel {
+
+    private static final Logger logger = LogManager.getLogger(NewRouteViewModel.class);
 
     @Autowired
     private RouteService routeService;
@@ -70,7 +80,21 @@ public class NewRouteViewModel {
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
 
-    public void saveRoute(){
+    public Tour saveRoute(){
+        if(getTime() == null || getDistance() == null){
+            logger.error("Some fields have not been properly filled out");
+            return null;  //damit nicht erstellt wird
+        }
+
+        try{
+            float floatDistance = parseFloat(getDistance());
+            float floatTime = parseFloat(getTime());
+        }
+        catch(Exception ex){
+            logger.error("Time and distance have to be written in numbers");
+            return null; // wieder falscher input
+        }
+
         tour = Tour.builder()
                 .name(getName())
                 .description(getDescription())
@@ -82,9 +106,20 @@ public class NewRouteViewModel {
                 //.routeInformation(null)
                 .build();
 
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Tour>> violations = validator.validate(tour);
+
+        if(!violations.isEmpty()){
+            logger.error("Some fields have not been properly filled out");
+            return null;  //damit nicht erstellt wird
+        }
+
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
+
+        return tour;
     }
 
     public void cancel(){

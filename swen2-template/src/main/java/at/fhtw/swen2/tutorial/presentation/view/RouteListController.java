@@ -167,8 +167,7 @@ public class RouteListController implements Initializable {
             }
         });
 
-
-
+        routeListViewModel.updateTourList();
     }
 
 }

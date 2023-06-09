@@ -58,4 +58,9 @@ public class RouteServiceImpl implements RouteService {
     public void update(Tour tour){
         routeRepository.save(tourMapper.toEntity(tour));
     }
+
+    @Override
+    public List<Tour> filter(String searchText){
+        return tourMapper.fromEntity(routeRepository.filterByString(searchText));
+    }
 }

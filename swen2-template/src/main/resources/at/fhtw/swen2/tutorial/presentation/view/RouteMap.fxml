@@ -6,6 +6,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="at.fhtw.swen2.tutorial.presentation.view.RouteListController">
    <children>
-      <ImageView fx:id="imageView" fitHeight="375.0" fitWidth="571.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView" fitHeight="1000.0" fitWidth="1000.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

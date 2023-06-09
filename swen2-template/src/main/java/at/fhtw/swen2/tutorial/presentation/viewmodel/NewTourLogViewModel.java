@@ -126,7 +126,10 @@ public class NewTourLogViewModel {
 
     private TourLog tourLog;
 
+    //This is the old version of this class!!!!!!
     public void saveTourLog(){
+
+
         tourLog = TourLog.builder()
                 .date(getDate())
                 .time(parseFloat(getTime()))

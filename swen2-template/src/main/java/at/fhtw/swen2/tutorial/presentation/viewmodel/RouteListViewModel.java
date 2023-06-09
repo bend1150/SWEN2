@@ -2,11 +2,13 @@ package at.fhtw.swen2.tutorial.presentation.viewmodel;
 
 import at.fhtw.swen2.tutorial.presentation.view.TourCreatorController;
 import at.fhtw.swen2.tutorial.service.RouteService;
+import at.fhtw.swen2.tutorial.service.model.Person;
 import at.fhtw.swen2.tutorial.service.model.Tour;
 import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -41,7 +44,7 @@ public class RouteListViewModel {
     TourLogInfoViewModel tourLogInfoViewModel;
 
     //replicates the list on the left of the screen
-    public ObservableList<Tour> tourList = FXCollections.observableArrayList();
+    private ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
     private int listIndex = -1;
@@ -73,17 +76,18 @@ public class RouteListViewModel {
 
         try{
             logger.info("Deleting index: " + selectedIndex);
+            if(selectedIndex < -1){
+                return;
+            }
 
             if(selectedIndex == -1){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Select a Tour to delete first");
-                alert.showAndWait();
+                popup();
                 return;
             }
 
             tourLogInfoViewModel.deleteAllTourLogs();
 
-            long deletedId = tourList.get(selectedIndex).getId();
+            long deletedId = getTourList().get(selectedIndex).getId();
 
             routeService.deleteById(deletedId); //delete
 
@@ -97,6 +101,12 @@ public class RouteListViewModel {
             logger.error(ex);
         }
 
+    }
+
+    public void popup(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Select a Tour to delete first");
+        alert.showAndWait();
     }
 
     public void updateTourList(){
@@ -151,5 +161,19 @@ public class RouteListViewModel {
             logger.error("Error while opening tour creator page");
             logger.error(ex);
         }
+    }
+
+    public void filterList(String searchText){
+        if(searchText.isEmpty()){
+            updateTourList();
+            return;
+        }
+
+        List<Tour> filteredList = routeService.filter(searchText);
+
+        tourList.clear();
+        tourList.setAll(filteredList);
+
+        updateSelectedIndex(-1);
     }
 }
