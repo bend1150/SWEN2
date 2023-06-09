@@ -126,6 +126,7 @@ public class NewTourLogViewModel {
 
     private TourLog tourLog;
 
+    //This is the old version of this class!!!!!!
     public void saveTourLog(){
 
 

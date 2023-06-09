@@ -76,6 +76,8 @@ public class TourLogController implements Initializable {
             }
         });
     }
+
+    //This is the old version of this class!!!!
     public void tourLogSubmitButtonAction(){
         //pack the bound data from the viewmodel into a dto and ship to service
         newTourLogViewModel.saveTourLog();

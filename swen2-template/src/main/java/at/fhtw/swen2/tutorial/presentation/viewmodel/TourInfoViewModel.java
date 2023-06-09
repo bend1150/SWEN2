@@ -96,6 +96,6 @@ public class TourInfoViewModel {
             return;
         }
         PdfReport pdfReport = new PdfReport();
-        pdfReport.createReport(tour, tourLogs); //pass Image too later
+        pdfReport.createReport(tour, tourLogs);
     }
 }

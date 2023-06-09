@@ -90,7 +90,7 @@ public class EditRouteViewModel {
     public Tour updateRoute(Tour selectedTour){
         if(getTime() == null || getDistance() == null){
             logger.error("Some fields have not been properly filled out");
-            return null;  //damit nicht erstellt wird
+            return selectedTour;  //damit nicht erstellt wird
         }
 
         try{
@@ -99,7 +99,7 @@ public class EditRouteViewModel {
         }
         catch(Exception ex){
             logger.error("Time and distance have to be written in numbers");
-            return null; // wieder falscher input
+            return selectedTour; // wieder falscher input
         }
 
         Tour backupTour = null;
@@ -117,7 +117,7 @@ public class EditRouteViewModel {
         }
         catch (Exception ex){
             logger.error("Error while updating Tour");
-            return null;
+            return selectedTour;
         }
 
 
@@ -159,7 +159,7 @@ public class EditRouteViewModel {
     }
 
     public void setProperties(int index){
-        long id = routeListViewModel.tourList.get(index).getId();
+        long id = routeListViewModel.getTourList().get(index).getId();
         Tour tour = routeService.getById(id);
 
         setName(tour.getName());

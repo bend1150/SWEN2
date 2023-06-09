@@ -44,7 +44,7 @@ public class RouteListViewModel {
     TourLogInfoViewModel tourLogInfoViewModel;
 
     //replicates the list on the left of the screen
-    public ObservableList<Tour> tourList = FXCollections.observableArrayList();
+    private ObservableList<Tour> tourList = FXCollections.observableArrayList();
     private SimpleListProperty tourListProperty = new SimpleListProperty(tourList);
 
     private int listIndex = -1;
@@ -76,17 +76,18 @@ public class RouteListViewModel {
 
         try{
             logger.info("Deleting index: " + selectedIndex);
+            if(selectedIndex < -1){
+                return;
+            }
 
             if(selectedIndex == -1){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Select a Tour to delete first");
-                alert.showAndWait();
+                popup();
                 return;
             }
 
             tourLogInfoViewModel.deleteAllTourLogs();
 
-            long deletedId = tourList.get(selectedIndex).getId();
+            long deletedId = getTourList().get(selectedIndex).getId();
 
             routeService.deleteById(deletedId); //delete
 
@@ -100,6 +101,12 @@ public class RouteListViewModel {
             logger.error(ex);
         }
 
+    }
+
+    public void popup(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Select a Tour to delete first");
+        alert.showAndWait();
     }
 
     public void updateTourList(){
@@ -166,7 +173,6 @@ public class RouteListViewModel {
 
         tourList.clear();
         tourList.setAll(filteredList);
-
 
         updateSelectedIndex(-1);
     }

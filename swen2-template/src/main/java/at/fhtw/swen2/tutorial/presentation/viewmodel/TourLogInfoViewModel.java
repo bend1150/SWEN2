@@ -43,6 +43,10 @@ public class TourLogInfoViewModel {
 
     public ObservableList<String> tourLogNames = FXCollections.observableArrayList();
 
+    public void setTourLogList(List<TourLog> tourLogList) {
+        this.tourLogList = tourLogList;
+    }
+
     private List<TourLog> tourLogList = new ArrayList<>();
 
     private int selectedLogIndex = -1;

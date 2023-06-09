@@ -80,10 +80,10 @@ public class NewRouteViewModel {
     public StringProperty timeProperty() { return time; }
     public void setTime(String time) { this.time.set(time); }
 
-    public void saveRoute(){
+    public Tour saveRoute(){
         if(getTime() == null || getDistance() == null){
             logger.error("Some fields have not been properly filled out");
-            return;  //damit nicht erstellt wird
+            return null;  //damit nicht erstellt wird
         }
 
         try{
@@ -92,9 +92,8 @@ public class NewRouteViewModel {
         }
         catch(Exception ex){
             logger.error("Time and distance have to be written in numbers");
-            return; // wieder falscher input
+            return null; // wieder falscher input
         }
-
 
         tour = Tour.builder()
                 .name(getName())
@@ -113,12 +112,14 @@ public class NewRouteViewModel {
 
         if(!violations.isEmpty()){
             logger.error("Some fields have not been properly filled out");
-            return;  //damit nicht erstellt wird
+            return null;  //damit nicht erstellt wird
         }
 
         routeService.addNew(tour);
 
         routeListViewModel.updateTourList();
+
+        return tour;
     }
 
     public void cancel(){
