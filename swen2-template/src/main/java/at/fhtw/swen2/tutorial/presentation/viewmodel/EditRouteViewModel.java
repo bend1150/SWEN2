@@ -5,6 +5,7 @@ import at.fhtw.swen2.tutorial.presentation.view.TourEditController;
 import at.fhtw.swen2.tutorial.service.PersonService;
 import at.fhtw.swen2.tutorial.service.RouteService;
 import at.fhtw.swen2.tutorial.service.model.Tour;
+import at.fhtw.swen2.tutorial.service.pdf.PdfReport;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
@@ -14,16 +15,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.Float.parseFloat;
 
 //hi
 @Component
 public class EditRouteViewModel {
+    private static final Logger logger = LogManager.getLogger(PdfReport.class);
 
     @Autowired
     TourEditController tourEditController;
@@ -78,25 +87,79 @@ public class EditRouteViewModel {
     public void setTime(String time) { this.time.set(time); }
 
 
-    public void updateRoute(Tour selectedTour){
+    public Tour updateRoute(Tour selectedTour){
+        if(getTime() == null || getDistance() == null){
+            logger.error("Some fields have not been properly filled out");
+            return selectedTour;  //damit nicht erstellt wird
+        }
 
-        selectedTour.setName(getName());
-        selectedTour.setDescription(getDescription());
-        selectedTour.setOrigin(getOrigin());
-        selectedTour.setDestination(getDestination());
-        selectedTour.setTransportType(getTransport());
-        selectedTour.setDistance(Float.parseFloat(getDistance()));
-        selectedTour.setTime(Float.parseFloat(getTime()));
+        try{
+            float floatDistance = parseFloat(getDistance());
+            float floatTime = parseFloat(getTime());
+        }
+        catch(Exception ex){
+            logger.error("Time and distance have to be written in numbers");
+            return selectedTour; // wieder falscher input
+        }
 
-        //save new
-        routeService.update(selectedTour);
+        Tour backupTour = null;
+        try{
+            backupTour = Tour.builder()
+                    .id(selectedTour.getId())
+                    .name(selectedTour.getName())
+                    .description(selectedTour.getDescription())
+                    .origin(selectedTour.getOrigin())
+                    .destination(selectedTour.getDestination())
+                    .transportType(selectedTour.getTransportType())
+                    .distance(selectedTour.getDistance())
+                    .time(selectedTour.getTime())
+                    .build();
+        }
+        catch (Exception ex){
+            logger.error("Error while updating Tour");
+            return selectedTour;
+        }
 
-        routeListViewModel.updateTourList();
-        tourInfoViewModel.updateInfo(selectedTour);
+
+        try{
+            logger.info("updating route");
+
+            selectedTour.setName(getName());
+            selectedTour.setDescription(getDescription());
+            selectedTour.setOrigin(getOrigin());
+            selectedTour.setDestination(getDestination());
+            selectedTour.setTransportType(getTransport());
+            selectedTour.setDistance(Float.parseFloat(getDistance()));
+            selectedTour.setTime(Float.parseFloat(getTime()));
+
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<Tour>> violations = validator.validate(selectedTour);       //schaut notations nach im model -> @NotNull oder @NotBlank
+
+            if(!violations.isEmpty()){
+                logger.error("Some fields have not been properly filled out");
+                routeListViewModel.updateTourList();        //keine ahnung warum, aber man muss die liste vom db aktualisieren sonst nicht update
+                return backupTour;  //damit nicht erstellt wird
+            }
+
+            //save new
+            routeService.update(selectedTour);
+
+            routeListViewModel.updateTourList();
+            tourInfoViewModel.updateInfo(selectedTour);
+
+            return selectedTour;
+        }
+        catch(Exception ex){
+            logger.error("Error updating route");
+            logger.error(ex);
+        }
+
+        return backupTour;
     }
 
     public void setProperties(int index){
-        long id = routeListViewModel.tourList.get(index).getId();
+        long id = routeListViewModel.getTourList().get(index).getId();
         Tour tour = routeService.getById(id);
 
         setName(tour.getName());
@@ -122,6 +185,8 @@ public class EditRouteViewModel {
 
     public void openDialog(){
         try{
+            logger.info("opening tour edit window");
+
             // Load the FXML file
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/fhtw/swen2/tutorial/presentation/view/TourEditor.fxml"));
             fxmlLoader.setController(tourEditController);
@@ -139,7 +204,8 @@ public class EditRouteViewModel {
             dialogStage.showAndWait();
         }
         catch(Exception ex){
-            System.out.println(ex);
+            logger.error("Error opening tour edit window");
+            logger.error(ex);
         }
     }
 }

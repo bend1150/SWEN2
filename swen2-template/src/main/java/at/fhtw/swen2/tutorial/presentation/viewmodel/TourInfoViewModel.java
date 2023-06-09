@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Component
 @Data
 public class TourInfoViewModel {
+    private static final Logger logger = LogManager.getLogger(PdfReport.class);
 
     @Autowired
     TourLogInfoViewModel tourLogInfoViewModel;
@@ -89,10 +92,10 @@ public class TourInfoViewModel {
         //image = ...
 
         if(tour == null){
-            System.out.println("tour is null");
+            logger.info("tour is null");
             return;
         }
         PdfReport pdfReport = new PdfReport();
-        pdfReport.createReport(tour, tourLogs); //pass Image too later
+        pdfReport.createReport(tour, tourLogs);
     }
 }

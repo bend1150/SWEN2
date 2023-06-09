@@ -58,7 +58,7 @@ public class TourLogController implements Initializable {
         tourLogList.itemsProperty().bindBidirectional(newTourLogViewModel.logListPropertyProperty());
 
 
-        //setzt tourLogList neu, sodass nur die Namen ausgegeben werden, obwohl in der TourLogList Objekte stecken
+        //setzt tourLogList neu, sodass nur das Datum ausgegeben werden, obwohl in der TourLogList Objekte stecken
         tourLogList.setCellFactory(new Callback<ListView<TourLog>, ListCell<TourLog>>() {
             @Override
             public ListCell<TourLog> call(ListView<TourLog> param) {
@@ -76,6 +76,8 @@ public class TourLogController implements Initializable {
             }
         });
     }
+
+    //This is the old version of this class!!!!
     public void tourLogSubmitButtonAction(){
         //pack the bound data from the viewmodel into a dto and ship to service
         newTourLogViewModel.saveTourLog();

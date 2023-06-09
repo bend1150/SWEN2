@@ -29,8 +29,7 @@ public class SearchController {
 
     @FXML
     private void initialize() {
-
-
+        searchTextField.textProperty().bindBidirectional(searchViewModel.searchStringProperty());
     }
 
     private void loadData() {
@@ -38,6 +37,6 @@ public class SearchController {
     }
 
     public void searchRoutes(ActionEvent actionEvent) {
-
+        searchViewModel.search();
     }
 }

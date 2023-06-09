@@ -153,7 +153,7 @@ public class RouteListController implements Initializable {
                         String selectedTourName = selectedTour.getName();
                         String origin = selectedTour.getOrigin();
                         String destination = selectedTour.getDestination();
-                        System.out.println("Selected tour: " + selectedTourName + ", Origin: " + origin + ", Destination: " + destination);
+                        logger.info("Selected tour: " + selectedTourName + ", Origin: " + origin + ", Destination: " + destination);
                         logger.info("Getting route for origin={}, destination={}", origin, destination);
 
                         try{
@@ -167,8 +167,7 @@ public class RouteListController implements Initializable {
             }
         });
 
-
-
+        routeListViewModel.updateTourList();
     }
 
 }

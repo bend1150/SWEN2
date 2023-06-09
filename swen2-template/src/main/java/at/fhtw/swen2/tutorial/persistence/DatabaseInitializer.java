@@ -20,16 +20,5 @@ public class DatabaseInitializer implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        TourLog test = TourLog.builder()
-                .comment("Hallo")
-                .date("test")
-                .tourId(1)
-                .difficulty("high")
-                .time(123f)
-                .totalTime(13f)
-                .rating(1f)
-                .build();
-
-        tourLogService.addNew(test);
     }
 }

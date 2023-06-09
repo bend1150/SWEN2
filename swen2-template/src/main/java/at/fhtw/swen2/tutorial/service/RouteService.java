@@ -17,4 +17,6 @@ public interface RouteService {
     Tour getById(long id);
 
     void update(Tour tour);
+
+    List<Tour> filter(String searchText);
 }
