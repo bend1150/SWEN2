@@ -90,10 +90,10 @@ public class RouteListController implements Initializable {
 
         tourList.getSelectionModel().selectedIndexProperty().addListener(
             new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    int index = tourList.getSelectionModel().getSelectedIndex();
-                    routeListViewModel.updateSelectedIndex(index);
+                @Override           //gets called when selected index from tourlist is changed
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {       //obervable: changed object; newValue: new selectedIndex
+                    int index = tourList.getSelectionModel().getSelectedIndex();        //new index wird geholt
+                    routeListViewModel.updateSelectedIndex(index);          //info und logs werden geladen
                 }
             }
         );
@@ -104,7 +104,7 @@ public class RouteListController implements Initializable {
             public ListCell<Tour> call(ListView<Tour> param) {
                 return new ListCell<>(){
                     @Override
-                    public void updateItem(Tour tour, boolean empty){
+                    public void updateItem(Tour tour, boolean empty){       //boolean => schaut ob empty
                         super.updateItem(tour, empty);
                         if(empty || tour == null){
                             setText(null);

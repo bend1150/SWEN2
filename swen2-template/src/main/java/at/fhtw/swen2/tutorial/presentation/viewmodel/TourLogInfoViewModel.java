@@ -52,7 +52,7 @@ public class TourLogInfoViewModel {
     private int selectedLogIndex = -1;
     private Tour selectedTour;
 
-    public void showTourLogs(int tourId){
+    public void showTourLogs(int tourId){           //tourLog wird angezeigt
         tourLogNames.clear();
         tourLogNames.add("Add new TourLog");
 
@@ -101,11 +101,11 @@ public class TourLogInfoViewModel {
             }
 
 
-            if(this.selectedLogIndex == -1){
+            if(this.selectedLogIndex == -1){                    //neuer Tour Log erstellt
                 logger.info("saving to tour nr: " + selectedTour.getId());
                 tourLogService.addNew(updatedLog);
             }
-            else {
+            else {                                              //tour update
                 logger.info("Updating to tour nr: " + selectedTour.getId());
                 updatedLog.setId(tourLogList.get(selectedLogIndex).getId());
                 logger.info("With ID: " + updatedLog.getId());

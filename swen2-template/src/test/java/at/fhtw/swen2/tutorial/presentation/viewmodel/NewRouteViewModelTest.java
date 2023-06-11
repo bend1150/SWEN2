@@ -40,8 +40,8 @@ class NewRouteViewModelTest {
         newRouteViewModel.setDistance("6");
         newRouteViewModel.setTime("123");
 
-        when(routeService.addNew(any(Tour.class))).thenReturn(null);
-        Mockito.doNothing().when(routeListViewModel).updateTourList();
+        when(routeService.addNew(any(Tour.class))).thenReturn(null);    //-> return null if addNew() is called
+        Mockito.doNothing().when(routeListViewModel).updateTourList();      // do nun if updateTourList() is called
 
         Tour testTour = newRouteViewModel.saveRoute();
 

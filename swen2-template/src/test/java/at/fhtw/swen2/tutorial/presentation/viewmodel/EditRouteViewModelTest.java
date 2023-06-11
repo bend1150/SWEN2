@@ -49,7 +49,7 @@ class EditRouteViewModelTest {
     @BeforeEach
     void setup(){
         MockitoAnnotations.initMocks(this);
-    }
+    }           //Felder mit @Mock werden initialisiert fürn Test
 
 
     @Test

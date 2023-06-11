@@ -38,7 +38,7 @@ public class MapQuestServiceImpl implements MapQuestService {
         byte[] imageBytes = getImageBytes(origin, destination);
         Image image = null;
         try {
-            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);    //read as inputStream
             image = new Image(bis);
             bis.close();
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class MapQuestServiceImpl implements MapQuestService {
         String apiURL ="https://www.mapquestapi.com/staticmap/v5/map?start=%s&end=%s&size=%d,%d@2x&format=png&key=%s";
         //String apiURL ="https://www.mapquestapi.com/staticmap/v5/map?start=%s&end=%s&size=%d,%d@2x&&key=%s";
         String key ="I0bgoaXyiDu6NYAjhuhA1cSv4jU7nQEv";
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();         //für HTTP Get
         String url = String.format(apiURL, origin, destination, 500, 170, key);
         logger.info("Sending request to {}", url);
 
@@ -80,7 +80,7 @@ public class MapQuestServiceImpl implements MapQuestService {
         loadingThread.start();
 
 
-        byte[] imageBytes = restTemplate.getForObject(url, byte[].class);
+        byte[] imageBytes = restTemplate.getForObject(url, byte[].class);       //holt es als byte array
 
         loading.set(false);
         System.out.println("\n");

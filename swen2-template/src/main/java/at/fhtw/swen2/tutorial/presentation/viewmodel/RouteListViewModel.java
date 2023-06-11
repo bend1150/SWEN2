@@ -89,7 +89,7 @@ public class RouteListViewModel {
 
             long deletedId = getTourList().get(selectedIndex).getId();
 
-            routeService.deleteById(deletedId); //delete
+            routeService.deleteById(deletedId); //delete by id
 
             updateTourList();
 
@@ -109,13 +109,13 @@ public class RouteListViewModel {
         alert.showAndWait();
     }
 
-    public void updateTourList(){
+    public void updateTourList(){           //von DB genomment
         List<Tour> newTourList = routeService.getRouteList();
 
         tourList.clear();
         tourList.setAll(newTourList);
 
-        updateSelectedIndex(-1);
+        updateSelectedIndex(-1);        //setzt ausgewählte index zurück
     }
 
     public void updateSelectedIndex(int index){
@@ -130,11 +130,11 @@ public class RouteListViewModel {
 
 
         //get the Tour info into the tour Info/The map
-        tourInfoViewModel.updateInfo(tourList.get(index));
+        tourInfoViewModel.updateInfo(tourList.get(index));      //info wird angezeigt
 
         //get the tourLog info into the tourLog table
-        tourLogInfoViewModel.showTourLogs(id);
-        tourLogInfoViewModel.setSelectedTour(tourList.get(index));
+        tourLogInfoViewModel.showTourLogs(id);                  //Tourlogs werden angezeigt
+        tourLogInfoViewModel.setSelectedTour(tourList.get(index));      //set TourLogInfo werden angepasst
     }
 
     public void routeCreatorPage(){
@@ -176,4 +176,5 @@ public class RouteListViewModel {
 
         updateSelectedIndex(-1);
     }
+
 }

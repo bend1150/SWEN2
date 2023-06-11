@@ -64,7 +64,7 @@ public class TourLogController implements Initializable {
             public ListCell<TourLog> call(ListView<TourLog> param) {
                 return new ListCell<>(){
                     @Override
-                    public void updateItem(TourLog tourLog, boolean empty){
+                    public void updateItem(TourLog tourLog, boolean empty){     //tourLog: tourlog object in cell; empty: falls leer
                         super.updateItem(tourLog, empty);
                         if(empty || tourLog == null){
                             setText(null);

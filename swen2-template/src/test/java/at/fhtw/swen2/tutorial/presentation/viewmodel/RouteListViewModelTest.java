@@ -56,7 +56,7 @@ class RouteListViewModelTest {
 
         routeListViewModel.deleteSelected(0);
 
-        verify(routeService, times(1)).deleteById(0);
+        verify(routeService, times(1)).deleteById(0);   //schaut wie oft ne funktion aufgerufen wird, if called more than once or never -> test fail
     }
 
     @Test
